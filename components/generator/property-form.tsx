@@ -45,11 +45,21 @@ interface PropertyFormProps {
     listingId?: string;
   }) => void;
   onLoadingChange: (loading: boolean) => void;
+  onInputCapture?: (data: {
+    address: string;
+    bedrooms: string;
+    bathrooms: string;
+    sqft: number;
+    lotSize?: string;
+    features?: string;
+    locationHighlights?: string;
+  }) => void;
 }
 
 export function PropertyForm({
   onListingsGenerated,
   onLoadingChange,
+  onInputCapture,
 }: PropertyFormProps) {
   const [isLookingUp, setIsLookingUp] = useState(false);
   const [tone, setTone] = useState<TonePreset>("mls_default");
@@ -124,6 +134,7 @@ export function PropertyForm({
         variants: result.variants,
         listingId: result.listingId,
       });
+      onInputCapture?.(data);
       toast.success("Listings generated successfully!");
     } catch (error) {
       toast.error(

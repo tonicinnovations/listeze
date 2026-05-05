@@ -1,10 +1,11 @@
-// v1.3 — Generator page (3 variants, tone presets, length toggle)
+// v1.5 — Generator page (3 variants, tone presets, length toggle, marketing kit)
 "use client";
 
 import { useState } from "react";
 import { PropertyForm } from "@/components/generator/property-form";
 import { ListingResults } from "@/components/generator/listing-results";
-import { Home, Sparkles, TrendingUp } from "lucide-react";
+import { MarketingKit } from "@/components/generator/marketing-kit";
+import { Home, Sparkles, TrendingUp, Package } from "lucide-react";
 import Link from "next/link";
 
 interface Variant {
@@ -13,12 +14,27 @@ interface Variant {
   hook: string;
 }
 
+interface GeneratedData {
+  variants: Variant[];
+  listingId?: string;
+}
+
 export default function GeneratePage() {
-  const [generatedListings, setGeneratedListings] = useState<{
-    variants: Variant[];
-    listingId?: string;
-  } | null>(null);
+  const [generatedListings, setGeneratedListings] = useState<GeneratedData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [lastInput, setLastInput] = useState<{
+    address: string;
+    bedrooms: string;
+    bathrooms: string;
+    sqft: number;
+    lotSize?: string;
+    features?: string;
+    locationHighlights?: string;
+  } | null>(null);
+
+  const handleGenerated = (data: GeneratedData) => {
+    setGeneratedListings(data);
+  };
 
   return (
     <div className="font-sans min-h-screen bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100">
@@ -59,15 +75,15 @@ export default function GeneratePage() {
           <div className="flex items-center justify-center space-x-6 mt-6 text-sm text-slate-500">
             <div className="flex items-center space-x-2">
               <TrendingUp className="w-4 h-4 text-blue-500" />
-              <span>2 unique variations</span>
+              <span>3 unique variations</span>
             </div>
             <div className="flex items-center space-x-2">
               <Sparkles className="w-4 h-4 text-green-500" />
-              <span>AI-powered copy</span>
+              <span>Fair housing scanned</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Home className="w-4 h-4 text-purple-500" />
-              <span>MLS-ready format</span>
+              <Package className="w-4 h-4 text-purple-500" />
+              <span>10-format marketing kit</span>
             </div>
           </div>
         </div>
@@ -75,10 +91,28 @@ export default function GeneratePage() {
 
       <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <PropertyForm
-            onListingsGenerated={setGeneratedListings}
-            onLoadingChange={setIsLoading}
-          />
+          <div>
+            <PropertyForm
+              onListingsGenerated={handleGenerated}
+              onLoadingChange={setIsLoading}
+              onInputCapture={setLastInput}
+            />
+            {/* Marketing Kit button appears after generation */}
+            {generatedListings?.listingId && lastInput && (
+              <MarketingKit
+                propertyData={{
+                  listingId: generatedListings.listingId,
+                  address: lastInput.address,
+                  bedrooms: lastInput.bedrooms,
+                  bathrooms: lastInput.bathrooms,
+                  sqft: lastInput.sqft,
+                  lotSize: lastInput.lotSize,
+                  features: lastInput.features,
+                  locationHighlights: lastInput.locationHighlights,
+                }}
+              />
+            )}
+          </div>
           <ListingResults listings={generatedListings} isLoading={isLoading} />
         </div>
       </main>
