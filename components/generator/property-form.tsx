@@ -19,7 +19,40 @@ import {
 import { Card, CardContent, CardHeader, CardDescription } from "@/components/ui/card";
 import { Sparkles, Search, MapPin } from "lucide-react";
 import { toast } from "sonner";
-import { TONE_LABELS, type TonePreset } from "@/lib/prompts/tone-presets";
+import {
+  TONE_LABELS,
+  TONE_EXAMPLES,
+  suggestTone,
+  type TonePreset,
+} from "@/lib/prompts/tone-presets";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
+  FileText,
+  Gem,
+  Home as HomeIcon,
+  TrendingUp,
+  Users,
+  Key,
+  Wrench,
+  Palmtree,
+  Mountain,
+} from "lucide-react";
+
+const TONE_ICON_MAP: Record<string, React.ReactNode> = {
+  mls_default: <FileText className="w-3.5 h-3.5" />,
+  luxury: <Gem className="w-3.5 h-3.5" />,
+  starter: <HomeIcon className="w-3.5 h-3.5" />,
+  investor: <TrendingUp className="w-3.5 h-3.5" />,
+  family: <Users className="w-3.5 h-3.5" />,
+  first_time: <Key className="w-3.5 h-3.5" />,
+  fixer: <Wrench className="w-3.5 h-3.5" />,
+  vacation: <Palmtree className="w-3.5 h-3.5" />,
+  land: <Mountain className="w-3.5 h-3.5" />,
+};
 
 const generateListingSchema = z.object({
   address: z.string().min(1, "Address is required"),
@@ -78,6 +111,22 @@ export function PropertyForm({
     },
   });
 
+  // Auto-suggest tone when key fields change
+  const watchedSqft = form.watch("sqft");
+  const watchedFeatures = form.watch("features");
+  const watchedLotSize = form.watch("lotSize");
+
+  const handleAutoSuggest = () => {
+    const suggested = suggestTone(
+      watchedSqft || 0,
+      watchedFeatures || "",
+      watchedLotSize || ""
+    );
+    if (suggested !== "mls_default") {
+      setTone(suggested);
+    }
+  };
+
   const handleAddressLookup = async () => {
     const address = form.getValues("address");
     if (!address || address.trim().length < 10) return;
@@ -97,6 +146,8 @@ export function PropertyForm({
         if (data.sqft) form.setValue("sqft", data.sqft);
         if (data.lotSize) form.setValue("lotSize", data.lotSize);
         form.trigger();
+        // Auto-suggest tone after filling data
+        setTimeout(handleAutoSuggest, 100);
         toast.success("Property details auto-filled!");
       } else {
         toast.error("Property not found. Please enter details manually.");
@@ -256,19 +307,30 @@ export function PropertyForm({
             <Textarea id="locationHighlights" rows={3} placeholder="Close to schools, shopping centers, parks, downtown area..." className="mt-2 resize-none" {...form.register("locationHighlights")} />
           </div>
 
-          {/* Tone Preset */}
+          {/* Tone Preset Chips */}
           <div>
-            <Label className="text-sm font-medium text-slate-700">Tone Preset</Label>
-            <Select value={tone} onValueChange={(v) => setTone((v ?? "mls_default") as TonePreset)}>
-              <SelectTrigger className="mt-2">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {Object.entries(TONE_LABELS).map(([key, label]) => (
-                  <SelectItem key={key} value={key}>{label}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <Label className="text-sm font-medium text-slate-700 mb-2 block">Tone Preset</Label>
+            <div className="flex flex-wrap gap-2">
+              {(Object.keys(TONE_LABELS) as TonePreset[]).map((key) => (
+                <Tooltip key={key}>
+                  <TooltipTrigger
+                    type="button"
+                    onClick={() => setTone(key)}
+                    className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
+                      tone === key
+                        ? "bg-blue-600 text-white shadow-sm"
+                        : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                    }`}
+                  >
+                    {TONE_ICON_MAP[key]}
+                    {TONE_LABELS[key]}
+                  </TooltipTrigger>
+                  <TooltipContent className="max-w-xs text-sm">
+                    {TONE_EXAMPLES[key]}
+                  </TooltipContent>
+                </Tooltip>
+              ))}
+            </div>
           </div>
 
           {/* Length Toggle */}
