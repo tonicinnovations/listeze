@@ -53,6 +53,14 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
+  // Admin gate: check email allowlist
+  if (request.nextUrl.pathname.startsWith("/admin") && user) {
+    const allowlist = (process.env.ADMIN_EMAIL_ALLOWLIST || "").split(",").map((e) => e.trim().toLowerCase());
+    if (!allowlist.includes(user.email?.toLowerCase() || "")) {
+      return new NextResponse("Forbidden", { status: 403 });
+    }
+  }
+
   return response;
 }
 
