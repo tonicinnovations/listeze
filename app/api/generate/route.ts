@@ -1,8 +1,9 @@
-// v1.0 — Generate MLS listing descriptions via Anthropic
+// v1.1 — Generate MLS listing descriptions via Anthropic (with auth)
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import Anthropic from "@anthropic-ai/sdk";
 import { buildMlsPrompt } from "@/lib/prompts/mls-description";
+import { createServerSupabaseClient } from "@/lib/supabase-server";
 
 const generateListingSchema = z.object({
   address: z.string().min(1, "Address is required"),
@@ -16,6 +17,13 @@ const generateListingSchema = z.object({
 
 export async function POST(request: Request) {
   try {
+    // Auth check
+    const supabase = await createServerSupabaseClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await request.json();
     const validatedData = generateListingSchema.parse(body);
 
@@ -33,7 +41,7 @@ export async function POST(request: Request) {
     const prompt = buildMlsPrompt(validatedData);
 
     const response = await anthropic.messages.create({
-      model: "claude-sonnet-4-5-20250514",
+      model: "claude-sonnet-4-20250514",
       max_tokens: 1024,
       messages: [
         {
@@ -50,7 +58,13 @@ export async function POST(request: Request) {
       throw new Error("No text response from Anthropic");
     }
 
-    const result = JSON.parse(textBlock.text);
+    // Strip markdown code fences if present
+    let jsonText = textBlock.text.trim();
+    if (jsonText.startsWith("```")) {
+      jsonText = jsonText.replace(/^```(?:json)?\s*/, "").replace(/```\s*$/, "");
+    }
+
+    const result = JSON.parse(jsonText);
 
     if (!result.variation1 || !result.variation2) {
       throw new Error("Invalid response format from Anthropic");
