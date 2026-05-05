@@ -108,7 +108,7 @@ export default function LandingPage() {
                 </li>
                 <li className="flex items-start gap-3">
                   <Globe className="mt-0.5 h-5 w-5 text-blue-600" />
-                  <span>English + native Spanish output for TX/FL/AZ/CA markets</span>
+                  <span>English + native Spanish output</span>
                 </li>
               </ul>
               <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
@@ -201,7 +201,7 @@ export default function LandingPage() {
                   <Globe className="w-4 h-4" /> English + Spanish
                 </div>
                 <p className="mt-2 text-sm text-foreground/80">
-                  Generate native Spanish listings — not translated, but written by AI as a Spanish-speaking copywriter. Built for TX, FL, AZ, and CA markets.
+                  Generate native Spanish listings — not translated, but written by AI as a Spanish-speaking copywriter. Fair housing scanner included for Spanish output too.
                 </p>
               </Card>
             </div>
