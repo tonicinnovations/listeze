@@ -1,11 +1,33 @@
-// v1.2 — Landing page (updated CTAs, removed countdown timer)
-import { Home, Check } from "lucide-react";
+// v1.7 — Landing page (Phase 8 polish: samples, ChatGPT comparison, fair housing hero, no fake testimonials)
+import { Home, Check, ShieldCheck, Sparkles, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { LandingDemo } from "@/components/landing/demo";
 import { ContactFormDialog } from "@/components/landing/contact-form-dialog";
 import { LifetimeCounter } from "@/components/landing/lifetime-counter";
+
+const SAMPLE_OUTPUTS = [
+  {
+    title: "$350K Starter Home — Phoenix, AZ",
+    tone: "Starter",
+    description:
+      "Your opportunity to own in one of Phoenix's most convenient corridors. This well-maintained 3-bedroom, 2-bath home offers 1,450 square feet of functional living space with an updated kitchen featuring granite countertops and stainless appliances. The open floor plan connects the living and dining areas, while the private backyard includes a covered patio — perfect for Arizona evenings. Minutes from the Loop 101, Tempe Marketplace, and light rail access. Move-in ready with fresh interior paint and new flooring throughout.",
+  },
+  {
+    title: "$1.2M Family Home — Scottsdale, AZ",
+    tone: "Family",
+    description:
+      "Spacious 5-bedroom residence in Scottsdale's Gainey Ranch community spanning 3,800 square feet on a quarter-acre lot. The split floor plan places the primary suite on one side with a private en-suite and walk-in closet, while four additional bedrooms occupy the opposite wing. The chef's kitchen opens to a great room with floor-to-ceiling windows framing mountain views. A three-car garage, mudroom with built-in cubbies, and dedicated homework nook off the kitchen round out this thoughtfully designed layout. Community amenities include pools, tennis courts, and walking paths.",
+  },
+  {
+    title: "$4.5M Luxury Estate — Paradise Valley, AZ",
+    tone: "Luxury",
+    description:
+      "An architectural statement of refined desert living, this 7,200-square-foot estate occupies a premier acre lot along the Camelback Mountain corridor. Imported Italian marble flows through the grand foyer into a formal living room anchored by a floor-to-ceiling stone fireplace. The primary suite features a private terrace, spa-caliber bath with soaking tub, and custom closet systems by California Closets. A temperature-controlled wine room, home theater with acoustic paneling, and resort-style infinity pool with negative edge complete this extraordinary offering. Guard-gated community with 24-hour security.",
+  },
+];
 
 export default function LandingPage() {
   return (
@@ -33,27 +55,14 @@ export default function LandingPage() {
               </span>
             </div>
             <nav className="hidden md:flex items-center gap-6 text-sm">
-              <a href="#features" className="hover:text-blue-700">
-                Features
-              </a>
-              <a href="#how" className="hover:text-blue-700">
-                How it works
-              </a>
-              <a href="#compare" className="hover:text-blue-700">
-                Compare
-              </a>
-              <a href="#pricing" className="hover:text-blue-700">
-                Pricing
-              </a>
-              <a href="#faq" className="hover:text-blue-700">
-                FAQ
-              </a>
+              <a href="#features" className="hover:text-blue-700">Features</a>
+              <a href="#samples" className="hover:text-blue-700">Samples</a>
+              <a href="#compare" className="hover:text-blue-700">Compare</a>
+              <a href="#pricing" className="hover:text-blue-700">Pricing</a>
+              <a href="#faq" className="hover:text-blue-700">FAQ</a>
             </nav>
             <div className="flex items-center gap-3">
-              <a
-                href="#demo"
-                className="hidden sm:inline-flex items-center rounded-xl border border-slate-300 px-4 py-2 text-sm font-medium hover:bg-white"
-              >
+              <a href="#demo" className="hidden sm:inline-flex items-center rounded-xl border border-slate-300 px-4 py-2 text-sm font-medium hover:bg-white">
                 Live Demo
               </a>
               <ContactFormDialog />
@@ -72,30 +81,28 @@ export default function LandingPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 py-16 lg:py-24 items-center">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-200">
-                AI for Real Estate
+              <div className="inline-flex items-center gap-2 rounded-full bg-green-50 px-3 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-200 mb-4">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                Every output reviewed for Fair Housing Act compliance
               </div>
-              <h1 className="mt-4 text-4xl sm:text-5xl font-extrabold leading-tight">
-                Write <span className="text-blue-600">MLS listings</span> in 30
-                seconds.
+              <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight">
+                Write <span className="text-blue-600">MLS listings</span> in 30 seconds.
               </h1>
               <p className="mt-4 text-lg text-slate-600">
-                Just enter an address and watch AI auto-fill property specs, then
-                generate 2-3 polished, MLS-ready descriptions. Save 45+ minutes
-                per listing.
+                Enter an address, auto-fill property specs, then generate 3 polished, compliance-scanned MLS descriptions. Plus a full marketing kit — IG, FB, email, flyer, and scripts.
               </p>
               <ul className="mt-6 space-y-2 text-slate-700">
+                <li className="flex items-start gap-3">
+                  <ShieldCheck className="mt-0.5 h-5 w-5 text-green-600" />
+                  <span>Fair housing compliance on every output</span>
+                </li>
                 <li className="flex items-start gap-3">
                   <Check className="mt-0.5 h-5 w-5 text-blue-600" />
                   <span>Smart address lookup auto-fills property specs</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="mt-0.5 h-5 w-5 text-blue-600" />
-                  <span>Multiple variations + one-click copy</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="mt-0.5 h-5 w-5 text-blue-600" />
-                  <span>Free trial — 3 generations, no card required</span>
+                  <span>9 tone presets + 3 length options + 10 output formats</span>
                 </li>
               </ul>
               <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
@@ -121,64 +128,97 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Social proof */}
-      <section className="py-10">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-slate-500 text-sm">
-            Trusted by busy agents and small brokerages
+      {/* Built for strip */}
+      <section className="py-8 bg-white border-y border-slate-200">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <p className="text-center text-xs text-slate-400 mb-4">
+            Built for agents at every brokerage. Logos shown for industry context — not endorsements.
           </p>
+          <div className="flex flex-wrap items-center justify-center gap-8 text-slate-400 text-sm font-semibold">
+            <span>Coldwell Banker</span>
+            <span>Keller Williams</span>
+            <span>RE/MAX</span>
+            <span>Compass</span>
+            <span>eXp Realty</span>
+            <span>Berkshire Hathaway HS</span>
+            <span>Century 21</span>
+            <span>Sotheby&apos;s</span>
+          </div>
         </div>
       </section>
 
       {/* Features */}
-      <section id="features" className="py-16 lg:py-24 bg-white">
+      <section id="features" className="py-16 lg:py-24 bg-slate-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-3 gap-10">
             <div>
-              <h2 className="text-3xl font-extrabold">
-                Built for MLS speed and polish
-              </h2>
+              <h2 className="text-3xl font-extrabold">Built for MLS speed and polish</h2>
               <p className="mt-3 text-slate-600">
-                ListEze MLS Generator focuses on one job: crafting professional,
-                MLS-ready copy fast. No bloated marketing suite — just the words
-                you need, now.
+                ListEze focuses on one job: crafting professional, MLS-ready copy fast. No bloated marketing suite — just the words you need, now.
               </p>
             </div>
             <div className="lg:col-span-2 grid sm:grid-cols-2 gap-6">
-              <Card className="rounded-3xl border border-slate-200 bg-slate-50 p-6">
-                <div className="text-sm font-semibold text-blue-700">
-                  MLS-tuned tone
+              <Card className="rounded-3xl border border-slate-200 bg-white p-6">
+                <div className="text-sm font-semibold text-green-700 flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4" /> Fair Housing Scanner
                 </div>
                 <p className="mt-2 text-sm text-slate-700">
-                  Outputs read like a seasoned real estate copywriter wrote them
-                  — compliant, inviting, and specific.
+                  Every output is scanned for Fair Housing Act violations. Flagged terms highlighted with one-click rewrite.
                 </p>
               </Card>
-              <Card className="rounded-3xl border border-slate-200 bg-slate-50 p-6">
-                <div className="text-sm font-semibold text-blue-700">
-                  2-3 variations
+              <Card className="rounded-3xl border border-slate-200 bg-white p-6">
+                <div className="text-sm font-semibold text-blue-700 flex items-center gap-1.5">
+                  <Sparkles className="w-4 h-4" /> 9 Tone Presets
                 </div>
                 <p className="mt-2 text-sm text-slate-700">
-                  Choose the style that fits the property and your brand voice.
+                  Luxury, starter, investor, family, fixer, vacation, land — auto-suggested based on your input.
                 </p>
               </Card>
-              <Card className="rounded-3xl border border-slate-200 bg-slate-50 p-6">
-                <div className="text-sm font-semibold text-blue-700">
-                  One-click copy & export
+              <Card className="rounded-3xl border border-slate-200 bg-white p-6">
+                <div className="text-sm font-semibold text-purple-700 flex items-center gap-1.5">
+                  <Package className="w-4 h-4" /> 10-Format Marketing Kit
                 </div>
                 <p className="mt-2 text-sm text-slate-700">
-                  Copy to clipboard or export to .docx for quick MLS paste.
+                  MLS + Instagram + Facebook + email blast + flyer + door knock + cold call + coming soon — all from one input.
                 </p>
               </Card>
-              <Card className="rounded-3xl border border-slate-200 bg-slate-50 p-6">
+              <Card className="rounded-3xl border border-slate-200 bg-white p-6">
                 <div className="text-sm font-semibold text-blue-700">
-                  Lifetime license
+                  Smart Address Lookup
                 </div>
                 <p className="mt-2 text-sm text-slate-700">
-                  Pay once. Use forever. No subscriptions or usage caps.
+                  Enter an address, auto-fill beds, baths, sqft, and lot size. Just add features and generate.
                 </p>
               </Card>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Sample Outputs */}
+      <section id="samples" className="py-16 lg:py-24 bg-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-extrabold">Real sample outputs</h2>
+          <p className="mt-2 text-slate-600">
+            Three properties, three tones — generated by ListEze.
+          </p>
+          <div className="mt-8 grid md:grid-cols-3 gap-6">
+            {SAMPLE_OUTPUTS.map((sample) => (
+              <Card key={sample.title} className="rounded-3xl border border-slate-200 p-6 flex flex-col">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="font-semibold text-sm">{sample.title}</h3>
+                  <Badge variant="secondary" className="text-xs">{sample.tone}</Badge>
+                </div>
+                <p className="text-sm text-slate-700 leading-relaxed flex-1">
+                  {sample.description}
+                </p>
+                <Link href="/login" className="mt-4">
+                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm">
+                    Generate yours
+                  </Button>
+                </Link>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
@@ -189,103 +229,102 @@ export default function LandingPage() {
           <div className="grid sm:grid-cols-3 gap-6">
             <Card className="rounded-3xl bg-white border border-slate-200 p-6">
               <div className="text-xs font-semibold text-slate-500">Step 1</div>
-              <h3 className="mt-1 font-semibold">Enter details</h3>
+              <h3 className="mt-1 font-semibold">Enter address</h3>
               <p className="mt-2 text-sm text-slate-600">
-                Beds, baths, square footage, key features, neighborhood
-                highlights.
+                Smart lookup auto-fills beds, baths, sqft. Add features and location highlights.
               </p>
             </Card>
             <Card className="rounded-3xl bg-white border border-slate-200 p-6">
               <div className="text-xs font-semibold text-slate-500">Step 2</div>
-              <h3 className="mt-1 font-semibold">Generate</h3>
+              <h3 className="mt-1 font-semibold">Pick tone & generate</h3>
               <p className="mt-2 text-sm text-slate-600">
-                AI crafts 2-3 polished variations tuned for MLS tone and
-                clarity.
+                Choose from 9 tone presets. AI crafts 3 compliance-scanned variants in seconds.
               </p>
             </Card>
             <Card className="rounded-3xl bg-white border border-slate-200 p-6">
               <div className="text-xs font-semibold text-slate-500">Step 3</div>
-              <h3 className="mt-1 font-semibold">Copy & paste</h3>
+              <h3 className="mt-1 font-semibold">Copy, export, or expand</h3>
               <p className="mt-2 text-sm text-slate-600">
-                Copy to clipboard or export to .docx and paste into your MLS
-                workflow.
+                Copy to clipboard, export to .docx, or generate the full 10-format marketing kit.
               </p>
             </Card>
           </div>
         </div>
       </section>
 
-      {/* Comparison */}
+      {/* Comparison — now includes ChatGPT */}
       <section id="compare" className="py-16 lg:py-24 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-extrabold">How we compare</h2>
           <p className="mt-2 text-slate-600">
-            ListEze MLS Generator is laser-focused on MLS descriptions. No
-            bloat, no subscription.
+            Purpose-built for MLS — not a generic AI chatbot.
           </p>
-          <div className="mt-6 overflow-hidden rounded-3xl border border-slate-200">
+          <div className="mt-6 overflow-x-auto rounded-3xl border border-slate-200">
             <table className="min-w-full divide-y divide-slate-200 text-sm">
               <thead className="bg-slate-50">
                 <tr>
                   <th className="px-4 py-3 text-left font-semibold">Feature</th>
-                  <th className="px-4 py-3 text-left font-semibold">
-                    ListEze MLS Generator
-                  </th>
-                  <th className="px-4 py-3 text-left font-semibold">
-                    ListingAI
-                  </th>
-                  <th className="px-4 py-3 text-left font-semibold">
-                    Epique.ai
-                  </th>
-                  <th className="px-4 py-3 text-left font-semibold">
-                    HAR.com Tool
-                  </th>
-                  <th className="px-4 py-3 text-left font-semibold">
-                    Generic Free Tools
-                  </th>
+                  <th className="px-4 py-3 text-left font-semibold text-blue-700">ListEze</th>
+                  <th className="px-4 py-3 text-left font-semibold">ChatGPT</th>
+                  <th className="px-4 py-3 text-left font-semibold">ListingAI</th>
+                  <th className="px-4 py-3 text-left font-semibold">Epique.ai</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 <tr>
-                  <td className="px-4 py-3">Focus</td>
-                  <td className="px-4 py-3">MLS descriptions only</td>
-                  <td className="px-4 py-3">Full suite</td>
-                  <td className="px-4 py-3">Full marketing</td>
-                  <td className="px-4 py-3">Member-only</td>
-                  <td className="px-4 py-3">Generic text</td>
+                  <td className="px-4 py-3">Fair housing scanner</td>
+                  <td className="px-4 py-3 text-green-700 font-medium">Included</td>
+                  <td className="px-4 py-3 text-red-500">No</td>
+                  <td className="px-4 py-3 text-red-500">No</td>
+                  <td className="px-4 py-3 text-red-500">No</td>
                 </tr>
                 <tr className="bg-slate-50/60">
-                  <td className="px-4 py-3">Ease of use</td>
-                  <td className="px-4 py-3">Super simple</td>
-                  <td className="px-4 py-3">Moderate</td>
-                  <td className="px-4 py-3">Complex</td>
-                  <td className="px-4 py-3">Easy (restricted)</td>
-                  <td className="px-4 py-3">Easy</td>
+                  <td className="px-4 py-3">Address autofill</td>
+                  <td className="px-4 py-3 text-green-700 font-medium">Included</td>
+                  <td className="px-4 py-3 text-red-500">No</td>
+                  <td className="px-4 py-3 text-slate-500">Limited</td>
+                  <td className="px-4 py-3 text-red-500">No</td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-3">Tone / polish</td>
-                  <td className="px-4 py-3">MLS-tuned</td>
-                  <td className="px-4 py-3">Generic+</td>
-                  <td className="px-4 py-3">Marketing tone</td>
-                  <td className="px-4 py-3">Professional</td>
-                  <td className="px-4 py-3">Generic</td>
+                  <td className="px-4 py-3">MLS-tuned tone</td>
+                  <td className="px-4 py-3 text-green-700 font-medium">9 presets</td>
+                  <td className="px-4 py-3 text-slate-500">Generic</td>
+                  <td className="px-4 py-3 text-slate-500">Generic+</td>
+                  <td className="px-4 py-3 text-slate-500">Marketing</td>
                 </tr>
                 <tr className="bg-slate-50/60">
+                  <td className="px-4 py-3">Marketing kit (10 formats)</td>
+                  <td className="px-4 py-3 text-green-700 font-medium">Included</td>
+                  <td className="px-4 py-3 text-red-500">No</td>
+                  <td className="px-4 py-3 text-slate-500">Some</td>
+                  <td className="px-4 py-3 text-slate-500">Some</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3">No prompt engineering needed</td>
+                  <td className="px-4 py-3 text-green-700 font-medium">Just fill in specs</td>
+                  <td className="px-4 py-3 text-red-500">Requires prompts</td>
+                  <td className="px-4 py-3 text-green-700">Guided</td>
+                  <td className="px-4 py-3 text-green-700">Guided</td>
+                </tr>
+                <tr className="bg-slate-50/60">
+                  <td className="px-4 py-3">Compliance review on output</td>
+                  <td className="px-4 py-3 text-green-700 font-medium">Auto on every output</td>
+                  <td className="px-4 py-3 text-red-500">No</td>
+                  <td className="px-4 py-3 text-red-500">No</td>
+                  <td className="px-4 py-3 text-red-500">No</td>
+                </tr>
+                <tr>
                   <td className="px-4 py-3">Pricing</td>
-                  <td className="px-4 py-3 font-medium text-green-700">
-                    Free trial / from $29/mo
-                  </td>
+                  <td className="px-4 py-3 font-medium text-green-700">Free trial / from $29/mo</td>
+                  <td className="px-4 py-3">$20/mo</td>
                   <td className="px-4 py-3">Subscription</td>
                   <td className="px-4 py-3">Subscription</td>
-                  <td className="px-4 py-3">Included with membership</td>
-                  <td className="px-4 py-3">Free (limited)</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <p className="mt-3 text-xs text-slate-500">
-            All trademarks belong to their respective owners. ListEze MLS
-            Generator is not affiliated with MLS systems or Realtor associations.
+            All trademarks belong to their respective owners. ListEze is not affiliated with any listed companies.
           </p>
         </div>
       </section>
@@ -294,9 +333,7 @@ export default function LandingPage() {
       <section id="pricing" className="py-16 lg:py-24 bg-slate-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-extrabold">Simple pricing</h2>
-          <p className="mt-2 text-slate-600">
-            Start free. Upgrade when you need more.
-          </p>
+          <p className="mt-2 text-slate-600">Start free. Upgrade when you need more.</p>
           <div className="mt-8">
             <Link href="/pricing">
               <Button className="bg-blue-600 hover:bg-blue-700 text-white rounded-2xl px-8 py-3 text-base font-semibold shadow">
@@ -310,69 +347,51 @@ export default function LandingPage() {
       {/* Demo section */}
       <section id="demo" className="py-16 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
-            <div>
-              <h2 className="text-3xl font-extrabold">See it in action</h2>
-              <p className="mt-2 text-slate-600">
-                Try the interactive demo above to see how ListEze MLS Generator
-                creates professional listings instantly.
-              </p>
-              <div className="mt-4 aspect-video w-full overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center text-slate-600">
-                <div className="text-center">
-                  <Home className="w-12 h-12 mx-auto mb-2 text-blue-600" />
-                  <p>Interactive demo available above</p>
-                </div>
-              </div>
+          <h2 className="text-3xl font-extrabold">See it in action</h2>
+          <p className="mt-2 text-slate-600">
+            Try the interactive demo in the hero above, or watch a walkthrough.
+          </p>
+          {/* TODO(real-data): replace with Todd's Loom recording */}
+          <div className="mt-4 aspect-video w-full max-w-3xl mx-auto overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center text-slate-600">
+            <div className="text-center">
+              <Home className="w-12 h-12 mx-auto mb-2 text-blue-600" />
+              <p className="font-medium">Demo video coming soon</p>
+              <p className="text-sm text-slate-500 mt-1">Try the live demo above</p>
             </div>
-            <Card className="rounded-3xl bg-slate-50 border border-slate-200 p-6">
-              <h3 className="font-semibold">What agents are saying</h3>
-              <div className="mt-4 space-y-4 text-sm text-slate-700">
-                {/* TODO(real-data): replace with named agent testimonials */}
-                <blockquote className="rounded-2xl bg-white p-4 border border-slate-200">
-                  &ldquo;This saved me nearly an hour per listing. Worth it on
-                  day one.&rdquo; — Sarah M.
-                </blockquote>
-                <blockquote className="rounded-2xl bg-white p-4 border border-slate-200">
-                  &ldquo;Clean output, MLS-ready, no fluff. Copied and pasted
-                  as-is.&rdquo; — John K.
-                </blockquote>
-              </div>
-            </Card>
           </div>
         </div>
       </section>
 
+      {/* Testimonials — hidden until real ones available */}
+      {/* TODO(real-data): replace with named agent testimonials with full names, brokerages, and headshots */}
+
       {/* FAQ */}
       <section id="faq" className="py-16 lg:py-24 bg-slate-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-extrabold">
-            Frequently asked questions
-          </h2>
+          <h2 className="text-3xl font-extrabold">Frequently asked questions</h2>
           <div className="mt-6 grid md:grid-cols-2 gap-6">
             <Card className="rounded-3xl bg-white border border-slate-200 p-6">
               <h3 className="font-semibold">Is the copy MLS-compliant?</h3>
               <p className="mt-2 text-sm text-slate-600">
-                Outputs are tuned for professional MLS tone. Always review for
-                your local board&apos;s rules before posting.
+                Every output is scanned for Fair Housing Act violations with flagged terms highlighted and one-click fixable. Always review for your local board&apos;s rules before posting.
               </p>
             </Card>
             <Card className="rounded-3xl bg-white border border-slate-200 p-6">
-              <h3 className="font-semibold">Do you store my inputs?</h3>
+              <h3 className="font-semibold">Do you store my property data?</h3>
               <p className="mt-2 text-sm text-slate-600">
-                No. Only non-sensitive usage logs are collected to improve
-                quality. Your property details remain private.
+                Your listings are stored in your account so you can access history and regenerate. We never share your data with third parties.
               </p>
             </Card>
             <Card className="rounded-3xl bg-white border border-slate-200 p-6">
               <h3 className="font-semibold">Refund policy?</h3>
               <p className="mt-2 text-sm text-slate-600">
-                30-day money-back guarantee if it doesn&apos;t save you time.
+                30-day money-back guarantee if it doesn&apos;t save you time. Contact support@listeze.com.
               </p>
             </Card>
             <Card className="rounded-3xl bg-white border border-slate-200 p-6">
-              <h3 className="font-semibold">Team licenses?</h3>
+              <h3 className="font-semibold">What formats are included?</h3>
               <p className="mt-2 text-sm text-slate-600">
-                Email us for brokerage pricing at support@listeze.com.
+                MLS descriptions (3 variants), Instagram captions, Facebook posts, email blasts, flyer copy, door knock scripts, cold call scripts, and coming soon teasers.
               </p>
             </Card>
           </div>
@@ -382,12 +401,8 @@ export default function LandingPage() {
       {/* CTA */}
       <section className="py-16 bg-gradient-to-r from-blue-700 to-purple-600 text-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-extrabold">
-            Ready to write listings in 30 seconds?
-          </h2>
-          <p className="mt-2 text-white/90">
-            3 free generations, no credit card required.
-          </p>
+          <h2 className="text-3xl font-extrabold">Ready to write listings in 30 seconds?</h2>
+          <p className="mt-2 text-white/90">3 free generations, no credit card required.</p>
           <Link href="/login">
             <Button className="mt-6 bg-white hover:bg-slate-100 text-blue-700 rounded-2xl px-6 py-3 text-base font-semibold shadow">
               Start Free Trial
@@ -405,25 +420,21 @@ export default function LandingPage() {
               <span className="font-semibold">ListEze MLS Generator</span>
             </div>
             <nav className="text-sm text-slate-600 flex items-center gap-4">
-              <a href="#pricing" className="hover:text-blue-700">
-                Pricing
-              </a>
-              <a href="#faq" className="hover:text-blue-700">
-                FAQ
-              </a>
-              <Link href="/privacy" className="hover:text-blue-700">
-                Privacy
-              </Link>
-              <Link href="/terms" className="hover:text-blue-700">
-                Terms
-              </Link>
+              <Link href="/pricing" className="hover:text-blue-700">Pricing</Link>
+              <Link href="/fair-housing-checker" className="hover:text-blue-700">Fair Housing</Link>
+              <a href="#faq" className="hover:text-blue-700">FAQ</a>
+              <Link href="/privacy" className="hover:text-blue-700">Privacy</Link>
+              <Link href="/terms" className="hover:text-blue-700">Terms</Link>
             </nav>
           </div>
-          <p className="mt-4 text-xs text-slate-500">
-            MLS is a registered trademark of multiple listing services and/or
-            their affiliates. ListEze MLS Generator is not affiliated with or
-            endorsed by MLS systems or Realtor associations.
-          </p>
+          <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <p className="text-xs text-slate-500">
+              MLS is a registered trademark. ListEze is not affiliated with or endorsed by MLS systems or Realtor associations.
+            </p>
+            <p className="text-xs text-slate-500">
+              support@listeze.com
+            </p>
+          </div>
         </div>
       </footer>
     </div>
