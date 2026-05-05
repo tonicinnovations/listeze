@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     await resend.emails.send({
-      from: "ListEze <noreply@listeze.com>",
+      from: "ListEze <support@send.listeze.com>",
       to: process.env.ADMIN_EMAIL_ALLOWLIST?.split(",")[0] || "support@listeze.com",
       replyTo: email,
       subject: `ListEze Contact: ${name}`,
