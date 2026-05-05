@@ -1,9 +1,10 @@
-// v1.0 — Root layout
+// v1.14b — Root layout with dark mode support
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { PostHogProvider } from "@/components/shared/posthog-provider";
+import { ThemeProvider } from "@/components/shared/theme-provider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -33,13 +34,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <PostHogProvider>
-          <TooltipProvider>{children}</TooltipProvider>
-        </PostHogProvider>
-        <Toaster />
+      <body className="min-h-full flex flex-col bg-background text-foreground">
+        <ThemeProvider>
+          <PostHogProvider>
+            <TooltipProvider>{children}</TooltipProvider>
+          </PostHogProvider>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

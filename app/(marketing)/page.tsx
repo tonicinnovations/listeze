@@ -7,6 +7,7 @@ import Link from "next/link";
 import { LandingDemo } from "@/components/landing/demo";
 import { ContactFormDialog } from "@/components/landing/contact-form-dialog";
 import { LifetimeCounter } from "@/components/landing/lifetime-counter";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
 
 const SAMPLE_OUTPUTS = [
   {
@@ -31,7 +32,7 @@ const SAMPLE_OUTPUTS = [
 
 export default function LandingPage() {
   return (
-    <div className="bg-slate-50 text-slate-900 font-sans">
+    <div className="bg-background text-foreground font-sans">
       {/* Announcement Banner */}
       <div className="relative isolate overflow-hidden bg-gradient-to-r from-blue-700 via-blue-600 to-purple-600">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -45,7 +46,7 @@ export default function LandingPage() {
       </div>
 
       {/* Header */}
-      <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/70 bg-white/80 border-b border-slate-200">
+      <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-background/70 bg-background/80 border-b border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center gap-2">
@@ -65,6 +66,7 @@ export default function LandingPage() {
               <a href="#demo" className="hidden sm:inline-flex items-center rounded-xl border border-slate-300 px-4 py-2 text-sm font-medium hover:bg-white">
                 Live Demo
               </a>
+              <ThemeToggle />
               <ContactFormDialog />
               <Link href="/login">
                 <Button className="bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-4 py-2 text-sm font-semibold shadow">
@@ -412,7 +414,7 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-slate-200">
+      <footer className="bg-card border-t border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">

@@ -7,6 +7,7 @@ import { ListingResults } from "@/components/generator/listing-results";
 import { MarketingKit } from "@/components/generator/marketing-kit";
 import { Home, Sparkles, TrendingUp, Package } from "lucide-react";
 import Link from "next/link";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
 
 interface Variant {
   description: string;
@@ -37,9 +38,9 @@ export default function GeneratePage() {
   };
 
   return (
-    <div className="font-sans min-h-screen bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100">
+    <div className="font-sans min-h-screen bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       {/* Header */}
-      <header className="relative bg-white border-b-4 border-blue-500 sticky top-0 z-50 shadow-lg">
+      <header className="relative bg-card border-b-4 border-blue-500 sticky top-0 z-50 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center space-x-3">
@@ -56,6 +57,7 @@ export default function GeneratePage() {
                 </p>
               </div>
             </Link>
+            <ThemeToggle />
           </div>
         </div>
       </header>
