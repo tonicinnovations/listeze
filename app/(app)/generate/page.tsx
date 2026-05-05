@@ -1,4 +1,4 @@
-// v1.0 — Generator page (ported from Replit v0.x home.tsx)
+// v1.3 — Generator page (3 variants, tone presets, length toggle)
 "use client";
 
 import { useState } from "react";
@@ -7,11 +7,16 @@ import { ListingResults } from "@/components/generator/listing-results";
 import { Home, Sparkles, TrendingUp } from "lucide-react";
 import Link from "next/link";
 
+interface Variant {
+  description: string;
+  headline: string;
+  hook: string;
+}
+
 export default function GeneratePage() {
   const [generatedListings, setGeneratedListings] = useState<{
-    variation1: string;
-    variation2: string;
-    wordCounts: { variation1: number; variation2: number };
+    variants: Variant[];
+    listingId?: string;
   } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 

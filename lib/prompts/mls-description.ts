@@ -1,4 +1,6 @@
-// v1.0 — MLS description prompt (ported from v0.x OpenAI prompt, adapted for Anthropic)
+// v1.3 — MLS description prompt with tone presets and length tiers
+import { TONE_PRESETS, type TonePreset } from "./tone-presets";
+
 export interface PropertyInput {
   address: string;
   bedrooms: string;
@@ -9,29 +11,54 @@ export interface PropertyInput {
   locationHighlights?: string;
 }
 
-export function buildMlsPrompt(input: PropertyInput): string {
-  return `You are an experienced real estate copywriter.
-Your task is to generate a professional, MLS-ready property listing description.
+export type LengthTier = "short" | "medium" | "long";
 
-INPUT DETAILS:
+const LENGTH_GUIDES: Record<LengthTier, string> = {
+  short: "Keep each variant under 250 characters. Tight, punchy, MLS-ready.",
+  medium: "Target 400-600 characters per variant. Balanced detail.",
+  long: "Write 800-1200 characters per variant. Rich detail, full narrative.",
+};
+
+export function buildSystemPrompt(tone: TonePreset = "mls_default"): string {
+  return `You are a senior real estate copywriter with 15+ years writing MLS descriptions.
+
+RULES:
+- No Fair Housing Act violations. Never reference race, religion, familial status, disability, sex, or national origin.
+- No superlatives without specifics — don't say "best" or "amazing" without backing it up.
+- Lead with the strongest feature of the property.
+- Vary sentence length for readability.
+- Use "primary bedroom" not "master bedroom".
+- Do not invent features not provided in the input.
+
+TONE: ${TONE_PRESETS[tone]}
+
+Always respond with valid JSON only. No markdown code fences.`;
+}
+
+export function buildMlsPrompt(
+  input: PropertyInput,
+  tone: TonePreset = "mls_default",
+  length: LengthTier = "medium"
+): string {
+  return `Generate 3 distinct MLS listing description variants for this property.
+
+PROPERTY:
 - Address: ${input.address}
 - Bedrooms: ${input.bedrooms}
 - Bathrooms: ${input.bathrooms}
 - Square Footage: ${input.sqft}
 - Lot Size: ${input.lotSize || "Not specified"}
 - Key Features: ${input.features || "None specified"}
-- Neighborhood/Location Highlights: ${input.locationHighlights || "None specified"}
+- Location Highlights: ${input.locationHighlights || "None specified"}
 
-OUTPUT REQUIREMENTS:
-- Write in an inviting, professional tone that appeals to homebuyers.
-- Highlight the property's unique features.
-- Emphasize lifestyle benefits (neighborhood, convenience, comfort).
-- Keep each variation between 120-180 words.
-- Provide 2 different variations.
+LENGTH: ${LENGTH_GUIDES[length]}
 
-Respond with JSON in this exact format:
+Respond with this exact JSON format:
 {
-  "variation1": "MLS listing text for variation 1",
-  "variation2": "MLS listing text for variation 2"
+  "variants": [
+    { "description": "...", "headline": "short punchy headline", "hook": "opening sentence" },
+    { "description": "...", "headline": "...", "hook": "..." },
+    { "description": "...", "headline": "...", "hook": "..." }
+  ]
 }`;
 }

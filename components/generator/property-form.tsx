@@ -1,4 +1,4 @@
-// v1.0 — Property form component (ported from Replit v0.x)
+// v1.3 — Property form with tone presets and length toggle
 "use client";
 
 import { useState } from "react";
@@ -19,6 +19,7 @@ import {
 import { Card, CardContent, CardHeader, CardDescription } from "@/components/ui/card";
 import { Sparkles, Search, MapPin } from "lucide-react";
 import { toast } from "sonner";
+import { TONE_LABELS, type TonePreset } from "@/lib/prompts/tone-presets";
 
 const generateListingSchema = z.object({
   address: z.string().min(1, "Address is required"),
@@ -32,11 +33,16 @@ const generateListingSchema = z.object({
 
 type GenerateListingRequest = z.infer<typeof generateListingSchema>;
 
+interface Variant {
+  description: string;
+  headline: string;
+  hook: string;
+}
+
 interface PropertyFormProps {
-  onListingsGenerated: (listings: {
-    variation1: string;
-    variation2: string;
-    wordCounts: { variation1: number; variation2: number };
+  onListingsGenerated: (data: {
+    variants: Variant[];
+    listingId?: string;
   }) => void;
   onLoadingChange: (loading: boolean) => void;
 }
@@ -46,6 +52,8 @@ export function PropertyForm({
   onLoadingChange,
 }: PropertyFormProps) {
   const [isLookingUp, setIsLookingUp] = useState(false);
+  const [tone, setTone] = useState<TonePreset>("mls_default");
+  const [length, setLength] = useState<"short" | "medium" | "long">("medium");
 
   const form = useForm<GenerateListingRequest>({
     resolver: zodResolver(generateListingSchema),
@@ -96,8 +104,15 @@ export function PropertyForm({
       const res = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, tone, length }),
       });
+
+      if (res.status === 402) {
+        const err = await res.json();
+        toast.error(err.message);
+        if (err.upgradeUrl) window.location.href = err.upgradeUrl;
+        return;
+      }
 
       if (!res.ok) {
         const err = await res.json();
@@ -105,7 +120,10 @@ export function PropertyForm({
       }
 
       const result = await res.json();
-      onListingsGenerated(result);
+      onListingsGenerated({
+        variants: result.variants,
+        listingId: result.listingId,
+      });
       toast.success("Listings generated successfully!");
     } catch (error) {
       toast.error(
@@ -162,26 +180,9 @@ export function PropertyForm({
             )}
           </div>
 
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200/60 rounded-xl p-5 shadow-sm">
-            <div className="flex items-center space-x-3 mb-3">
-              <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center">
-                <Sparkles className="w-3 h-3 text-white" />
-              </div>
-              <span className="text-sm font-semibold text-blue-900">
-                Smart Address Lookup
-              </span>
-            </div>
-            <p className="text-sm text-blue-800 leading-relaxed">
-              Enter a complete address above and click Lookup to auto-fill basic
-              specs. If not found, enter details manually below.
-            </p>
-          </div>
-
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label className="text-sm font-medium text-slate-700">
-                Bedrooms *
-              </Label>
+              <Label className="text-sm font-medium text-slate-700">Bedrooms *</Label>
               <Select
                 onValueChange={(value) => form.setValue("bedrooms", value ?? "")}
                 value={form.watch("bedrooms")}
@@ -191,22 +192,16 @@ export function PropertyForm({
                 </SelectTrigger>
                 <SelectContent>
                   {["1", "2", "3", "4", "5", "6", "7", "8+"].map((v) => (
-                    <SelectItem key={v} value={v}>
-                      {v}
-                    </SelectItem>
+                    <SelectItem key={v} value={v}>{v}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
               {form.formState.errors.bedrooms && (
-                <p className="text-sm text-red-600 mt-1">
-                  {form.formState.errors.bedrooms.message}
-                </p>
+                <p className="text-sm text-red-600 mt-1">{form.formState.errors.bedrooms.message}</p>
               )}
             </div>
             <div>
-              <Label className="text-sm font-medium text-slate-700">
-                Bathrooms *
-              </Label>
+              <Label className="text-sm font-medium text-slate-700">Bathrooms *</Label>
               <Select
                 onValueChange={(value) => form.setValue("bathrooms", value ?? "")}
                 value={form.watch("bathrooms")}
@@ -215,85 +210,75 @@ export function PropertyForm({
                   <SelectValue placeholder="Select" />
                 </SelectTrigger>
                 <SelectContent>
-                  {["1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5", "5+"].map(
-                    (v) => (
-                      <SelectItem key={v} value={v}>
-                        {v}
-                      </SelectItem>
-                    )
-                  )}
+                  {["1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5", "5+"].map((v) => (
+                    <SelectItem key={v} value={v}>{v}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               {form.formState.errors.bathrooms && (
-                <p className="text-sm text-red-600 mt-1">
-                  {form.formState.errors.bathrooms.message}
-                </p>
+                <p className="text-sm text-red-600 mt-1">{form.formState.errors.bathrooms.message}</p>
               )}
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="sqft" className="text-sm font-medium text-slate-700">
-                Square Footage *
-              </Label>
-              <Input
-                id="sqft"
-                type="number"
-                placeholder="2,500"
-                min="1"
-                className="mt-2"
-                {...form.register("sqft", { valueAsNumber: true })}
-              />
+              <Label htmlFor="sqft" className="text-sm font-medium text-slate-700">Square Footage *</Label>
+              <Input id="sqft" type="number" placeholder="2,500" min="1" className="mt-2" {...form.register("sqft", { valueAsNumber: true })} />
               {form.formState.errors.sqft && (
-                <p className="text-sm text-red-600 mt-1">
-                  {form.formState.errors.sqft.message}
-                </p>
+                <p className="text-sm text-red-600 mt-1">{form.formState.errors.sqft.message}</p>
               )}
             </div>
             <div>
-              <Label htmlFor="lotSize" className="text-sm font-medium text-slate-700">
-                Lot Size
-              </Label>
-              <Input
-                id="lotSize"
-                placeholder="0.25 acres"
-                className="mt-2"
-                {...form.register("lotSize")}
-              />
+              <Label htmlFor="lotSize" className="text-sm font-medium text-slate-700">Lot Size</Label>
+              <Input id="lotSize" placeholder="0.25 acres" className="mt-2" {...form.register("lotSize")} />
             </div>
           </div>
 
           <div>
-            <Label htmlFor="features" className="text-sm font-medium text-slate-700">
-              Key Features
-            </Label>
-            <Textarea
-              id="features"
-              rows={3}
-              placeholder="Updated kitchen, hardwood floors, fireplace, garage, pool..."
-              className="mt-2 resize-none"
-              {...form.register("features")}
-            />
-            <p className="text-xs text-slate-500 mt-1">
-              Separate features with commas
-            </p>
+            <Label htmlFor="features" className="text-sm font-medium text-slate-700">Key Features</Label>
+            <Textarea id="features" rows={3} placeholder="Updated kitchen, hardwood floors, fireplace, garage, pool..." className="mt-2 resize-none" {...form.register("features")} />
           </div>
 
           <div>
-            <Label
-              htmlFor="locationHighlights"
-              className="text-sm font-medium text-slate-700"
-            >
-              Neighborhood & Location Highlights
-            </Label>
-            <Textarea
-              id="locationHighlights"
-              rows={3}
-              placeholder="Close to schools, shopping centers, parks, downtown area..."
-              className="mt-2 resize-none"
-              {...form.register("locationHighlights")}
-            />
+            <Label htmlFor="locationHighlights" className="text-sm font-medium text-slate-700">Neighborhood & Location Highlights</Label>
+            <Textarea id="locationHighlights" rows={3} placeholder="Close to schools, shopping centers, parks, downtown area..." className="mt-2 resize-none" {...form.register("locationHighlights")} />
+          </div>
+
+          {/* Tone Preset */}
+          <div>
+            <Label className="text-sm font-medium text-slate-700">Tone Preset</Label>
+            <Select value={tone} onValueChange={(v) => setTone((v ?? "mls_default") as TonePreset)}>
+              <SelectTrigger className="mt-2">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {Object.entries(TONE_LABELS).map(([key, label]) => (
+                  <SelectItem key={key} value={key}>{label}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Length Toggle */}
+          <div>
+            <Label className="text-sm font-medium text-slate-700 mb-2 block">Description Length</Label>
+            <div className="flex gap-2">
+              {(["short", "medium", "long"] as const).map((l) => (
+                <button
+                  key={l}
+                  type="button"
+                  onClick={() => setLength(l)}
+                  className={`flex-1 rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${
+                    length === l
+                      ? "bg-blue-600 text-white border-blue-600"
+                      : "bg-white text-slate-700 border-slate-300 hover:bg-slate-50"
+                  }`}
+                >
+                  {l === "short" ? "Short (~250 chars)" : l === "medium" ? "Medium (~500 chars)" : "Long (~1000+ chars)"}
+                </button>
+              ))}
+            </div>
           </div>
 
           <Button
@@ -302,9 +287,7 @@ export function PropertyForm({
             disabled={form.formState.isSubmitting}
           >
             <Sparkles className="w-5 h-5 mr-2" />
-            {form.formState.isSubmitting
-              ? "Generating..."
-              : "Generate Professional Listings"}
+            {form.formState.isSubmitting ? "Generating..." : "Generate Professional Listings"}
           </Button>
         </form>
       </CardContent>
