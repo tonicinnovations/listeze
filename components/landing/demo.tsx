@@ -57,9 +57,9 @@ export function LandingDemo() {
 
   return (
     <div className="relative">
-      <Card className="rounded-3xl shadow-xl border border-slate-200 p-6">
+      <Card className="rounded-3xl shadow-xl border border-border p-6">
         <div className="flex items-center justify-between">
-          <div className="text-sm font-medium text-slate-700">Sample Input</div>
+          <div className="text-sm font-medium text-foreground/80">Sample Input</div>
         </div>
         <form
           onSubmit={(e) => {
@@ -71,7 +71,7 @@ export function LandingDemo() {
           <div>
             <label
               htmlFor="demo-address"
-              className="text-sm font-medium block text-slate-700 mb-1"
+              className="text-sm font-medium block text-foreground/80 mb-1"
             >
               Property Address
             </label>
@@ -83,10 +83,10 @@ export function LandingDemo() {
                 onChange={(e) =>
                   setDemoForm({ ...demoForm, address: e.target.value })
                 }
-                className="w-full rounded-xl border border-slate-300 px-4 py-3 pl-10 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full rounded-xl border border-border px-4 py-3 pl-10 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Enter property address..."
               />
-              <MapPin className="absolute left-3 top-3.5 h-4 w-4 text-slate-400" />
+              <MapPin className="absolute left-3 top-3.5 h-4 w-4 text-muted-foreground" />
               <Button
                 type="button"
                 onClick={simulateAddressLookup}
@@ -107,7 +107,7 @@ export function LandingDemo() {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-sm font-medium block text-slate-700 mb-1">
+              <label className="text-sm font-medium block text-foreground/80 mb-1">
                 Bedrooms
               </label>
               <input
@@ -116,11 +116,11 @@ export function LandingDemo() {
                 onChange={(e) =>
                   setDemoForm({ ...demoForm, bedrooms: e.target.value })
                 }
-                className="w-full rounded-xl border border-slate-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full rounded-xl border border-border px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
             <div>
-              <label className="text-sm font-medium block text-slate-700 mb-1">
+              <label className="text-sm font-medium block text-foreground/80 mb-1">
                 Bathrooms
               </label>
               <input
@@ -129,14 +129,14 @@ export function LandingDemo() {
                 onChange={(e) =>
                   setDemoForm({ ...demoForm, bathrooms: e.target.value })
                 }
-                className="w-full rounded-xl border border-slate-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full rounded-xl border border-border px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-sm font-medium block text-slate-700 mb-1">
+              <label className="text-sm font-medium block text-foreground/80 mb-1">
                 Square Feet
               </label>
               <input
@@ -146,11 +146,11 @@ export function LandingDemo() {
                 onChange={(e) =>
                   setDemoForm({ ...demoForm, sqft: e.target.value })
                 }
-                className="w-full rounded-xl border border-slate-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full rounded-xl border border-border px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
             <div>
-              <label className="text-sm font-medium block text-slate-700 mb-1">
+              <label className="text-sm font-medium block text-foreground/80 mb-1">
                 Lot Size
               </label>
               <input
@@ -159,13 +159,13 @@ export function LandingDemo() {
                 onChange={(e) =>
                   setDemoForm({ ...demoForm, lotSize: e.target.value })
                 }
-                className="w-full rounded-xl border border-slate-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full rounded-xl border border-border px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
           </div>
 
           <div>
-            <label className="text-sm font-medium block text-slate-700 mb-1">
+            <label className="text-sm font-medium block text-foreground/80 mb-1">
               Property Features
             </label>
             <input
@@ -174,13 +174,13 @@ export function LandingDemo() {
               onChange={(e) =>
                 setDemoForm({ ...demoForm, features: e.target.value })
               }
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full rounded-xl border border-border px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               placeholder="modern kitchen, hardwood floors, etc."
             />
           </div>
 
           <div>
-            <label className="text-sm font-medium block text-slate-700 mb-1">
+            <label className="text-sm font-medium block text-foreground/80 mb-1">
               Location Highlights
             </label>
             <input
@@ -192,7 +192,7 @@ export function LandingDemo() {
                   locationHighlights: e.target.value,
                 })
               }
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full rounded-xl border border-border px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               placeholder="near schools, shopping, parks, etc."
             />
           </div>
@@ -207,16 +207,16 @@ export function LandingDemo() {
 
         {(demoOutput.var1 || demoOutput.var2) && (
           <div className="mt-6 space-y-4">
-            <div className="text-sm font-medium text-slate-700">
+            <div className="text-sm font-medium text-foreground/80">
               Output Preview
             </div>
             {demoOutput.var1 && (
-              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm">
+              <div className="rounded-2xl border border-border bg-muted p-4 text-sm">
                 {demoOutput.var1}
               </div>
             )}
             {demoOutput.var2 && (
-              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm">
+              <div className="rounded-2xl border border-border bg-muted p-4 text-sm">
                 {demoOutput.var2}
               </div>
             )}
