@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/tooltip";
 import { Copy, FileText, CheckCircle, Loader2, Clock, TextCursorInput, ShieldCheck, ShieldAlert, ShieldX, Download } from "lucide-react";
 import { toast } from "sonner";
+import { trackEvent } from "@/lib/posthog";
 
 interface Flag {
   term: string;
@@ -176,6 +177,7 @@ export function ListingResults({ listings, isLoading }: ListingResultsProps) {
   const handleFixAll = async (idx: number) => {
     const state = variantStates[idx];
     if (!state || state.flags.length === 0) return;
+    trackEvent("fix_all_clicked", { variant: idx, flag_count: state.flags.length });
 
     setVariantStates((prev) => {
       const updated = [...prev];
@@ -385,6 +387,7 @@ export function ListingResults({ listings, isLoading }: ListingResultsProps) {
                     variant="ghost"
                     size="sm"
                     onClick={async () => {
+                      trackEvent("export_clicked", { format: "docx", variant: idx });
                       try {
                         const res = await fetch("/api/export/docx", {
                           method: "POST",

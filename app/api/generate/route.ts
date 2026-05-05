@@ -5,6 +5,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { buildMlsPrompt, buildSystemPrompt, type LengthTier } from "@/lib/prompts/mls-description";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
 import type { TonePreset } from "@/lib/prompts/tone-presets";
+import { trackServerEvent } from "@/lib/posthog-server";
 
 const generateListingSchema = z.object({
   address: z.string().min(1, "Address is required"),
@@ -59,6 +60,9 @@ export async function POST(request: Request) {
     const tone = validatedData.tone as TonePreset;
     const length = validatedData.length as LengthTier;
     const language = validatedData.language as "en" | "es";
+    const startTime = Date.now();
+    trackServerEvent(user.id, "generation_started", { tone, length, language, format: "mls" });
+
     const prompt = buildMlsPrompt(validatedData, tone, length, language);
     const systemPrompt = buildSystemPrompt(tone, language);
 
@@ -148,6 +152,12 @@ export async function POST(request: Request) {
         tokens_out: tokensOut,
         cost_cents: costCents,
       },
+    });
+
+    trackServerEvent(user.id, "generation_completed", {
+      tone, length, language, format: "mls",
+      duration_ms: Date.now() - startTime,
+      tokens_in: tokensIn, tokens_out: tokensOut, cost_cents: costCents,
     });
 
     return NextResponse.json({

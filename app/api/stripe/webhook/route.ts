@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { createClient } from "@supabase/supabase-js";
 import type Stripe from "stripe";
+import { trackServerEvent } from "@/lib/posthog-server";
 
 // Use service role client for webhooks (no user context)
 function getAdminSupabase() {
@@ -72,6 +73,7 @@ export async function POST(request: Request) {
         })
         .eq("id", userId);
 
+      trackServerEvent(userId, "subscription_started", { plan });
       break;
     }
 
@@ -100,6 +102,7 @@ export async function POST(request: Request) {
         .update({ plan: "trial", updated_at: new Date().toISOString() })
         .eq("stripe_customer_id", customerId);
 
+      trackServerEvent(customerId, "subscription_canceled", {});
       break;
     }
 
