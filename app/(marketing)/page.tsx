@@ -1,5 +1,5 @@
 // v1.7 — Landing page (Phase 8 polish: samples, ChatGPT comparison, fair housing hero, no fake testimonials)
-import { Home, Check, ShieldCheck, Sparkles, Package } from "lucide-react";
+import { Home, Check, ShieldCheck, Sparkles, Package, Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -183,11 +183,11 @@ export default function LandingPage() {
                 </p>
               </Card>
               <Card className="rounded-3xl border border-slate-200 bg-white p-6">
-                <div className="text-sm font-semibold text-blue-700">
-                  Smart Address Lookup
+                <div className="text-sm font-semibold text-blue-700 flex items-center gap-1.5">
+                  <Camera className="w-4 h-4" /> Photo Feature Extraction
                 </div>
                 <p className="mt-2 text-sm text-slate-700">
-                  Enter an address, auto-fill beds, baths, sqft, and lot size. Just add features and generate.
+                  Upload listing photos and AI extracts features — stainless appliances, hardwood floors, pool — to pre-fill your input.
                 </p>
               </Card>
             </div>
