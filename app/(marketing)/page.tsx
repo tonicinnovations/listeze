@@ -1,10 +1,11 @@
-// v1.0 — Landing page (ported from Replit v0.x)
-import { Home, Check, MapPin, Search } from "lucide-react";
+// v1.2 — Landing page (updated CTAs, removed countdown timer)
+import { Home, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Link from "next/link";
 import { LandingDemo } from "@/components/landing/demo";
 import { ContactFormDialog } from "@/components/landing/contact-form-dialog";
+import { LifetimeCounter } from "@/components/landing/lifetime-counter";
 
 export default function LandingPage() {
   return (
@@ -14,9 +15,8 @@ export default function LandingPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="py-3 flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-white/90">
             <div className="text-center sm:text-left">
-              <strong>Launch Special:</strong> Lifetime access{" "}
-              <span className="line-through opacity-70">$97</span>{" "}
-              <span className="font-bold">$47</span>
+              <strong>Launch Lifetime — $97 one-time</strong>{" "}
+              <LifetimeCounter />
             </div>
           </div>
         </div>
@@ -57,7 +57,7 @@ export default function LandingPage() {
                 Live Demo
               </a>
               <ContactFormDialog />
-              <Link href="/generate">
+              <Link href="/login">
                 <Button className="bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-4 py-2 text-sm font-semibold shadow">
                   Login
                 </Button>
@@ -95,24 +95,23 @@ export default function LandingPage() {
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="mt-0.5 h-5 w-5 text-blue-600" />
-                  <span>One-time lifetime license — no subscription</span>
+                  <span>Free trial — 3 generations, no card required</span>
                 </li>
               </ul>
               <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                <Link href="/generate">
+                <Link href="/login">
                   <Button className="bg-blue-600 hover:bg-blue-700 text-white rounded-2xl px-6 py-3 text-base font-semibold shadow">
-                    Get Lifetime Access For $47
+                    Start Free Trial
                   </Button>
                 </Link>
-                <a
-                  href="#demo"
-                  className="inline-flex items-center justify-center rounded-2xl border border-slate-300 px-6 py-3 text-base font-semibold hover:bg-white"
-                >
-                  See a Live Demo
-                </a>
+                <Link href="/pricing">
+                  <Button variant="outline" className="rounded-2xl px-6 py-3 text-base font-semibold">
+                    Or get $97 lifetime — limited to first 100
+                  </Button>
+                </Link>
               </div>
               <p className="mt-3 text-xs text-slate-500">
-                Limited launch pricing.
+                3 free generations, no credit card required.
               </p>
             </div>
 
@@ -274,7 +273,7 @@ export default function LandingPage() {
                 <tr className="bg-slate-50/60">
                   <td className="px-4 py-3">Pricing</td>
                   <td className="px-4 py-3 font-medium text-green-700">
-                    $47 lifetime
+                    Free trial / from $29/mo
                   </td>
                   <td className="px-4 py-3">Subscription</td>
                   <td className="px-4 py-3">Subscription</td>
@@ -293,58 +292,17 @@ export default function LandingPage() {
 
       {/* Pricing */}
       <section id="pricing" className="py-16 lg:py-24 bg-slate-50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-10 items-center">
-            <div>
-              <h2 className="text-3xl font-extrabold">
-                Lifetime access. One low price.
-              </h2>
-              <p className="mt-2 text-slate-600">
-                Lock in the launch deal and get all future improvements free.
-              </p>
-              <ul className="mt-6 space-y-2 text-slate-700">
-                <li className="flex items-start gap-3">
-                  <Check className="mt-0.5 h-5 w-5 text-blue-600" />
-                  <span>Unlimited MLS description generations</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="mt-0.5 h-5 w-5 text-blue-600" />
-                  <span>2-3 stylistic variations each time</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="mt-0.5 h-5 w-5 text-blue-600" />
-                  <span>One-click copy & .docx export</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="mt-0.5 h-5 w-5 text-blue-600" />
-                  <span>Priority support during launch</span>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <Card className="rounded-3xl shadow-xl border border-slate-200 p-8">
-                <div className="text-sm font-semibold text-slate-500">
-                  Launch special
-                </div>
-                <div className="mt-2 flex items-end gap-3">
-                  <div className="text-5xl font-extrabold tracking-tight">
-                    $47
-                  </div>
-                  <div className="text-slate-400 line-through">$97</div>
-                </div>
-                <p className="mt-2 text-sm text-slate-600">
-                  Lifetime license - 30-day refund
-                </p>
-                <Link href="/generate">
-                  <Button className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white rounded-2xl px-6 py-3 text-base font-semibold shadow">
-                    Get Lifetime Access For $47
-                  </Button>
-                </Link>
-                <p className="mt-3 text-xs text-slate-500">
-                  Secure payment processing via Stripe.
-                </p>
-              </Card>
-            </div>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-extrabold">Simple pricing</h2>
+          <p className="mt-2 text-slate-600">
+            Start free. Upgrade when you need more.
+          </p>
+          <div className="mt-8">
+            <Link href="/pricing">
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white rounded-2xl px-8 py-3 text-base font-semibold shadow">
+                View All Plans
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -428,11 +386,11 @@ export default function LandingPage() {
             Ready to write listings in 30 seconds?
           </h2>
           <p className="mt-2 text-white/90">
-            Lock in lifetime access before the launch deal ends.
+            3 free generations, no credit card required.
           </p>
-          <Link href="/generate">
+          <Link href="/login">
             <Button className="mt-6 bg-white hover:bg-slate-100 text-blue-700 rounded-2xl px-6 py-3 text-base font-semibold shadow">
-              Get Lifetime Access For $47
+              Start Free Trial
             </Button>
           </Link>
         </div>

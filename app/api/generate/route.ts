@@ -1,4 +1,4 @@
-// v1.1 — Generate MLS listing descriptions via Anthropic (with auth)
+// v1.2 — Generate MLS listing descriptions via Anthropic (with auth + trial enforcement)
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import Anthropic from "@anthropic-ai/sdk";
@@ -22,6 +22,20 @@ export async function POST(request: Request) {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
+    // Trial enforcement
+    const { data: dbUser } = await supabase
+      .from("users")
+      .select("plan, trial_generations_used")
+      .eq("id", user.id)
+      .single();
+
+    if (dbUser?.plan === "trial" && (dbUser.trial_generations_used ?? 0) >= 3) {
+      return NextResponse.json(
+        { message: "Free trial limit reached (3 generations). Upgrade to continue.", upgradeUrl: "/pricing" },
+        { status: 402 }
+      );
     }
 
     const body = await request.json();
@@ -74,6 +88,17 @@ export async function POST(request: Request) {
       variation1: result.variation1.split(/\s+/).length,
       variation2: result.variation2.split(/\s+/).length,
     };
+
+    // Increment trial counter if on trial plan
+    if (dbUser?.plan === "trial") {
+      await supabase
+        .from("users")
+        .update({
+          trial_generations_used: (dbUser.trial_generations_used ?? 0) + 1,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", user.id);
+    }
 
     return NextResponse.json({
       variation1: result.variation1,
