@@ -1,3 +1,3 @@
-// v1.0 — Fair housing module stub
-export { FLAGGED_TERMS } from "./flagged-terms";
-export { scanText } from "./scanner";
+// v1.4 — Fair housing module
+export { FLAGGED_TERMS, type FlaggedTerm } from "./flagged-terms";
+export { scanText, buildAiScanPrompt, type Flag, type ScanResult } from "./scanner";
