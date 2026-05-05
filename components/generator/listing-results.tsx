@@ -10,7 +10,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Copy, FileText, CheckCircle, Loader2, Clock, TextCursorInput, ShieldCheck, ShieldAlert, ShieldX } from "lucide-react";
+import { Copy, FileText, CheckCircle, Loader2, Clock, TextCursorInput, ShieldCheck, ShieldAlert, ShieldX, Download } from "lucide-react";
 import { toast } from "sonner";
 
 interface Flag {
@@ -380,14 +380,47 @@ export function ListingResults({ listings, isLoading }: ListingResultsProps) {
                     <span>MLS-ready</span>
                   </span>
                 </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => copyToClipboard(state.variant.description, idx)}
-                  disabled={copiedIdx === idx}
-                >
-                  {copiedIdx === idx ? "Copied!" : "Copy Listing"}
-                </Button>
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={async () => {
+                      try {
+                        const res = await fetch("/api/export/docx", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({
+                            content: state.variant.description,
+                            headline: state.variant.headline,
+                          }),
+                        });
+                        if (res.ok) {
+                          const blob = await res.blob();
+                          const url = URL.createObjectURL(blob);
+                          const a = document.createElement("a");
+                          a.href = url;
+                          a.download = `listing-variant-${idx + 1}.docx`;
+                          a.click();
+                          URL.revokeObjectURL(url);
+                          toast.success("DOCX downloaded");
+                        }
+                      } catch {
+                        toast.error("Export failed");
+                      }
+                    }}
+                    className="text-xs"
+                  >
+                    <Download className="w-3 h-3 mr-1" /> .docx
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => copyToClipboard(state.variant.description, idx)}
+                    disabled={copiedIdx === idx}
+                  >
+                    {copiedIdx === idx ? "Copied!" : "Copy Listing"}
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>
