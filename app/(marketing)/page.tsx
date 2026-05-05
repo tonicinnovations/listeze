@@ -1,5 +1,5 @@
 // v1.7 — Landing page (Phase 8 polish: samples, ChatGPT comparison, fair housing hero, no fake testimonials)
-import { Home, Check, ShieldCheck, Sparkles, Package, Camera } from "lucide-react";
+import { Home, Check, ShieldCheck, Sparkles, Package, Camera, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -106,6 +106,10 @@ export default function LandingPage() {
                   <Check className="mt-0.5 h-5 w-5 text-blue-600" />
                   <span>9 tone presets + 3 length options + 10 output formats</span>
                 </li>
+                <li className="flex items-start gap-3">
+                  <Globe className="mt-0.5 h-5 w-5 text-blue-600" />
+                  <span>English + native Spanish output for TX/FL/AZ/CA markets</span>
+                </li>
               </ul>
               <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <Link href="/login">
@@ -190,6 +194,14 @@ export default function LandingPage() {
                 </div>
                 <p className="mt-2 text-sm text-foreground/80">
                   Upload listing photos and AI extracts features — stainless appliances, hardwood floors, pool — to pre-fill your input.
+                </p>
+              </Card>
+              <Card className="rounded-3xl border border-border bg-card p-6">
+                <div className="text-sm font-semibold text-blue-700 flex items-center gap-1.5">
+                  <Globe className="w-4 h-4" /> English + Spanish
+                </div>
+                <p className="mt-2 text-sm text-foreground/80">
+                  Generate native Spanish listings — not translated, but written by AI as a Spanish-speaking copywriter. Built for TX, FL, AZ, and CA markets.
                 </p>
               </Card>
             </div>
@@ -316,6 +328,13 @@ export default function LandingPage() {
                   <td className="px-4 py-3 text-red-500">No</td>
                 </tr>
                 <tr>
+                  <td className="px-4 py-3">Native Spanish output</td>
+                  <td className="px-4 py-3 text-green-700 font-medium">EN + ES</td>
+                  <td className="px-4 py-3 text-muted-foreground">Manual prompting</td>
+                  <td className="px-4 py-3 text-red-500">No</td>
+                  <td className="px-4 py-3 text-red-500">No</td>
+                </tr>
+                <tr className="bg-muted/40">
                   <td className="px-4 py-3">Pricing</td>
                   <td className="px-4 py-3 font-medium text-green-700">Free trial / from $29/mo</td>
                   <td className="px-4 py-3">$20/mo</td>
@@ -394,6 +413,12 @@ export default function LandingPage() {
               <h3 className="font-semibold">What formats are included?</h3>
               <p className="mt-2 text-sm text-muted-foreground">
                 MLS descriptions (3 variants), Instagram captions, Facebook posts, email blasts, flyer copy, door knock scripts, cold call scripts, and coming soon teasers.
+              </p>
+            </Card>
+            <Card className="rounded-3xl bg-card border border-border p-6">
+              <h3 className="font-semibold">Can I generate listings in Spanish?</h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Yes. Toggle to Espa&ntilde;ol on the generator page and get native Spanish descriptions — written by AI as a Spanish-speaking real estate copywriter, not machine-translated. Fair housing terms are scanned in Spanish too.
               </p>
             </Card>
           </div>

@@ -33,6 +33,7 @@ const tiers = [
       "Unlimited MLS descriptions",
       "All tone presets",
       "MLS + IG + FB formats",
+      "English + Spanish output",
       "Fair housing scanner",
       "Photo feature extraction (3 photos)",
       "Copy + .docx export",
