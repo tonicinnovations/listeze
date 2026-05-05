@@ -16,6 +16,7 @@ const generateListingSchema = z.object({
   locationHighlights: z.string().optional(),
   tone: z.string().optional().default("mls_default"),
   length: z.enum(["short", "medium", "long"]).optional().default("medium"),
+  language: z.enum(["en", "es"]).optional().default("en"),
 });
 
 export async function POST(request: Request) {
@@ -57,8 +58,9 @@ export async function POST(request: Request) {
 
     const tone = validatedData.tone as TonePreset;
     const length = validatedData.length as LengthTier;
-    const prompt = buildMlsPrompt(validatedData, tone, length);
-    const systemPrompt = buildSystemPrompt(tone);
+    const language = validatedData.language as "en" | "es";
+    const prompt = buildMlsPrompt(validatedData, tone, length, language);
+    const systemPrompt = buildSystemPrompt(tone, language);
 
     const response = await anthropic.messages.create({
       model: "claude-sonnet-4-20250514",
@@ -97,6 +99,7 @@ export async function POST(request: Request) {
         property_features: validatedData.features || null,
         location_highlights: validatedData.locationHighlights || null,
         tone_preset: tone,
+        language: language,
       })
       .select("id")
       .single();

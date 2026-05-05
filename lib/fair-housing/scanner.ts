@@ -1,5 +1,6 @@
 // v1.4 — Fair housing scanner: regex pass + AI pass
 import { FLAGGED_TERMS, type FlaggedTerm } from "./flagged-terms";
+import { FLAGGED_TERMS_ES } from "./flagged-terms-es";
 
 export interface Flag {
   term: string;
@@ -19,11 +20,12 @@ export interface ScanResult {
  * Regex-based scan against the flagged terms list.
  * Returns flags with position offsets for inline highlighting.
  */
-export function scanText(text: string): ScanResult {
+export function scanText(text: string, language: "en" | "es" = "en"): ScanResult {
   const flags: Flag[] = [];
   const lowerText = text.toLowerCase();
+  const termList = language === "es" ? [...FLAGGED_TERMS, ...FLAGGED_TERMS_ES] : FLAGGED_TERMS;
 
-  for (const flaggedTerm of FLAGGED_TERMS) {
+  for (const flaggedTerm of termList) {
     const termLower = flaggedTerm.term.toLowerCase();
     let searchFrom = 0;
 

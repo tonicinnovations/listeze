@@ -98,6 +98,7 @@ export function PropertyForm({
   const [isLookingUp, setIsLookingUp] = useState(false);
   const [tone, setTone] = useState<TonePreset>("mls_default");
   const [length, setLength] = useState<"short" | "medium" | "long">("medium");
+  const [language, setLanguage] = useState<"en" | "es">("en");
 
   // Pre-fill from URL params (regenerate flow from history)
   useEffect(() => {
@@ -111,6 +112,7 @@ export function PropertyForm({
     if (params.get("features")) form.setValue("features", params.get("features")!);
     if (params.get("locationHighlights")) form.setValue("locationHighlights", params.get("locationHighlights")!);
     if (params.get("tone")) setTone(params.get("tone") as TonePreset);
+    if (params.get("language")) setLanguage(params.get("language") as "en" | "es");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -181,7 +183,7 @@ export function PropertyForm({
       const res = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, tone, length }),
+        body: JSON.stringify({ ...data, tone, length, language }),
       });
 
       if (res.status === 402) {
@@ -329,6 +331,35 @@ export function PropertyForm({
           <div>
             <Label htmlFor="locationHighlights" className="text-sm font-medium text-slate-700">Neighborhood & Location Highlights</Label>
             <Textarea id="locationHighlights" rows={3} placeholder="Close to schools, shopping centers, parks, downtown area..." className="mt-2 resize-none" {...form.register("locationHighlights")} />
+          </div>
+
+          {/* Language Toggle */}
+          <div>
+            <Label className="text-sm font-medium text-slate-700 mb-2 block">Output Language</Label>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => setLanguage("en")}
+                className={`flex-1 rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${
+                  language === "en"
+                    ? "bg-blue-600 text-white border-blue-600"
+                    : "bg-white text-slate-700 border-slate-300 hover:bg-slate-50"
+                }`}
+              >
+                English
+              </button>
+              <button
+                type="button"
+                onClick={() => setLanguage("es")}
+                className={`flex-1 rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${
+                  language === "es"
+                    ? "bg-blue-600 text-white border-blue-600"
+                    : "bg-white text-slate-700 border-slate-300 hover:bg-slate-50"
+                }`}
+              >
+                Español
+              </button>
+            </div>
           </div>
 
           {/* Tone Preset Chips */}

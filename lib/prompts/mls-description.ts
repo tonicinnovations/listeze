@@ -19,7 +19,11 @@ const LENGTH_GUIDES: Record<LengthTier, string> = {
   long: "Write 800-1200 characters per variant. Rich detail, full narrative.",
 };
 
-export function buildSystemPrompt(tone: TonePreset = "mls_default"): string {
+export function buildSystemPrompt(tone: TonePreset = "mls_default", language: "en" | "es" = "en"): string {
+  const langInstruction = language === "es"
+    ? "\n\nIMPORTANT: Write ALL output in native, professional Spanish. Do NOT translate from English — write as a native Spanish-speaking real estate copywriter would. Use vocabulary natural to the TX/FL/AZ/CA Spanish-speaking market."
+    : "";
+
   return `You are a senior real estate copywriter with 15+ years writing MLS descriptions.
 
 RULES:
@@ -30,7 +34,7 @@ RULES:
 - Use "primary bedroom" not "master bedroom".
 - Do not invent features not provided in the input.
 
-TONE: ${TONE_PRESETS[tone]}
+TONE: ${TONE_PRESETS[tone]}${langInstruction}
 
 Always respond with valid JSON only. No markdown code fences.`;
 }
@@ -38,9 +42,11 @@ Always respond with valid JSON only. No markdown code fences.`;
 export function buildMlsPrompt(
   input: PropertyInput,
   tone: TonePreset = "mls_default",
-  length: LengthTier = "medium"
+  length: LengthTier = "medium",
+  language: "en" | "es" = "en"
 ): string {
-  return `Generate 3 distinct MLS listing description variants for this property.
+  const langNote = language === "es" ? "\n\nWrite ALL variants in native Spanish." : "";
+  return `Generate 3 distinct MLS listing description variants for this property.${langNote}
 
 PROPERTY:
 - Address: ${input.address}
