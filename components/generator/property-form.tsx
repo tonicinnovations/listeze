@@ -1,7 +1,7 @@
 // v1.3 — Property form with tone presets and length toggle
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -97,6 +97,21 @@ export function PropertyForm({
   const [isLookingUp, setIsLookingUp] = useState(false);
   const [tone, setTone] = useState<TonePreset>("mls_default");
   const [length, setLength] = useState<"short" | "medium" | "long">("medium");
+
+  // Pre-fill from URL params (regenerate flow from history)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("address")) form.setValue("address", params.get("address")!);
+    if (params.get("bedrooms")) form.setValue("bedrooms", params.get("bedrooms")!);
+    if (params.get("bathrooms")) form.setValue("bathrooms", params.get("bathrooms")!);
+    if (params.get("sqft")) form.setValue("sqft", parseInt(params.get("sqft")!) || 0);
+    if (params.get("lotSize")) form.setValue("lotSize", params.get("lotSize")!);
+    if (params.get("features")) form.setValue("features", params.get("features")!);
+    if (params.get("locationHighlights")) form.setValue("locationHighlights", params.get("locationHighlights")!);
+    if (params.get("tone")) setTone(params.get("tone") as TonePreset);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const form = useForm<GenerateListingRequest>({
     resolver: zodResolver(generateListingSchema),
