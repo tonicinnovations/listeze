@@ -19,6 +19,7 @@ import {
 import { Card, CardContent, CardHeader, CardDescription } from "@/components/ui/card";
 import { Sparkles, Search, MapPin } from "lucide-react";
 import { toast } from "sonner";
+import { PhotoUpload } from "./photo-upload";
 import {
   TONE_LABELS,
   TONE_EXAMPLES,
@@ -311,6 +312,14 @@ export function PropertyForm({
               <Input id="lotSize" placeholder="0.25 acres" className="mt-2" {...form.register("lotSize")} />
             </div>
           </div>
+
+          {/* Photo Upload */}
+          <PhotoUpload
+            onFeaturesExtracted={(features) => {
+              const current = form.getValues("features") || "";
+              form.setValue("features", current ? `${current}, ${features}` : features);
+            }}
+          />
 
           <div>
             <Label htmlFor="features" className="text-sm font-medium text-slate-700">Key Features</Label>
