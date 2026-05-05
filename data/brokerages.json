@@ -1,0 +1,22 @@
+[
+  {"name":"Keller Williams","slug":"keller-williams"},
+  {"name":"RE/MAX","slug":"remax"},
+  {"name":"Coldwell Banker","slug":"coldwell-banker"},
+  {"name":"Century 21","slug":"century-21"},
+  {"name":"Berkshire Hathaway HomeServices","slug":"berkshire-hathaway"},
+  {"name":"Compass","slug":"compass"},
+  {"name":"eXp Realty","slug":"exp-realty"},
+  {"name":"Sotheby's International Realty","slug":"sothebys"},
+  {"name":"ERA Real Estate","slug":"era"},
+  {"name":"Redfin","slug":"redfin"},
+  {"name":"Realogy","slug":"realogy"},
+  {"name":"HomeSmart","slug":"homesmart"},
+  {"name":"EXIT Realty","slug":"exit-realty"},
+  {"name":"Weichert Realtors","slug":"weichert"},
+  {"name":"Better Homes and Gardens RE","slug":"better-homes-gardens"},
+  {"name":"Long & Foster","slug":"long-foster"},
+  {"name":"Howard Hanna","slug":"howard-hanna"},
+  {"name":"Douglas Elliman","slug":"douglas-elliman"},
+  {"name":"Engel & Volkers","slug":"engel-volkers"},
+  {"name":"The Agency","slug":"the-agency"}
+]

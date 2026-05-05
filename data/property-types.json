@@ -1,0 +1,12 @@
+[
+  {"name":"Condo","slug":"condo","description":"Generate MLS descriptions for condominiums — HOA details, shared amenities, and urban living features."},
+  {"name":"Single-Family Home","slug":"single-family","description":"Professional listing descriptions for single-family residences — the most common MLS listing type."},
+  {"name":"Townhouse","slug":"townhouse","description":"Craft compelling descriptions for townhomes — multi-level layouts, low-maintenance living, and community features."},
+  {"name":"Multi-Family","slug":"multi-family","description":"Write investment-ready descriptions for duplexes, triplexes, and fourplexes with rental income potential."},
+  {"name":"Land","slug":"land","description":"Spec-driven descriptions for vacant land — acreage, topography, utilities, zoning, and development potential."},
+  {"name":"Luxury","slug":"luxury","description":"Aspirational, refined descriptions for high-end properties — craftsmanship, provenance, and lifestyle."},
+  {"name":"Waterfront","slug":"waterfront","description":"Lifestyle-focused descriptions for lakefront, oceanfront, and riverfront properties."},
+  {"name":"Ranch","slug":"ranch","description":"Feature-rich descriptions for ranch-style properties — single-level living, acreage, and outdoor amenities."},
+  {"name":"Mobile Home","slug":"mobile-home","description":"Professional descriptions for manufactured and mobile homes — affordability, community amenities, and value."},
+  {"name":"New Construction","slug":"new-construction","description":"Highlight builder specs, energy efficiency, and modern finishes in new construction listings."}
+]
