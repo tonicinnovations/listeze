@@ -70,7 +70,7 @@ export default function LandingPage() {
               <ContactFormDialog />
               <Link href="/login">
                 <Button className="bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-4 py-2 text-sm font-semibold shadow">
-                  Login
+                  Login / Sign Up
                 </Button>
               </Link>
             </div>

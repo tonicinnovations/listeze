@@ -5,7 +5,7 @@ import { useState } from "react";
 import { PropertyForm } from "@/components/generator/property-form";
 import { ListingResults } from "@/components/generator/listing-results";
 import { MarketingKit } from "@/components/generator/marketing-kit";
-import { Home, Sparkles, TrendingUp, Package } from "lucide-react";
+import { Home, Sparkles, TrendingUp, Package, Settings, History } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 
@@ -57,7 +57,15 @@ export default function GeneratePage() {
                 </p>
               </div>
             </Link>
-            <ThemeToggle />
+            <div className="flex items-center gap-2">
+              <Link href="/history" className="p-2 text-muted-foreground hover:text-foreground rounded-lg">
+                <History className="w-5 h-5" />
+              </Link>
+              <Link href="/settings" className="p-2 text-muted-foreground hover:text-foreground rounded-lg">
+                <Settings className="w-5 h-5" />
+              </Link>
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </header>

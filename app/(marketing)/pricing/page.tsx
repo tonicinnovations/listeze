@@ -97,7 +97,7 @@ export default function PricingPage() {
             </Link>
             <Link href="/login">
               <Button className="bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-4 py-2 text-sm font-semibold shadow">
-                Login
+                Login / Sign Up
               </Button>
             </Link>
           </div>
@@ -105,14 +105,14 @@ export default function PricingPage() {
       </header>
 
       {/* Lifetime Banner */}
-      <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white">
+      <div className="bg-gradient-to-r from-blue-700 via-blue-600 to-purple-600 text-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-center gap-4 text-sm">
           <span className="font-bold">Launch Lifetime — $97 one-time</span>
           <LifetimeCounter />
           <CheckoutButton
             priceId={process.env.STRIPE_PRICE_LIFETIME_LAUNCH || ""}
             mode="payment"
-            className="bg-white text-orange-600 hover:bg-orange-50 rounded-lg px-4 py-1.5 text-sm font-semibold"
+            className="bg-white text-blue-700 hover:bg-blue-50 rounded-lg px-4 py-1.5 text-sm font-semibold"
           >
             Get Lifetime Access
           </CheckoutButton>
