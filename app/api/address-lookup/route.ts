@@ -1,4 +1,4 @@
-// v1.0 — Address lookup via ATTOM Data API (ported from Replit v0.x)
+// v1.16 — Address lookup via RentCast API
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -12,70 +12,43 @@ export async function POST(request: Request) {
       );
     }
 
-    const apiKey = process.env.ATTOM_API_KEY;
+    const apiKey = process.env.RENTCAST_API_KEY;
     if (!apiKey) {
       return NextResponse.json({ address, found: false });
     }
 
     const cleanAddress = address.trim().replace(/\s+/g, " ");
-    const addressParts = cleanAddress.split(",");
-    let address1 = "";
-    let address2 = "";
 
-    if (addressParts.length >= 2) {
-      address1 = addressParts[0].trim();
-      address2 = addressParts.slice(1).join(",").trim();
-    } else {
-      address1 = cleanAddress;
-      address2 = "";
-    }
-
-    const endpoints = [
-      `https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/basicprofile?address1=${encodeURIComponent(address1)}&address2=${encodeURIComponent(address2)}`,
-      `https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/snapshot?address1=${encodeURIComponent(address1)}&address2=${encodeURIComponent(address2)}`,
-      `https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/detail?address1=${encodeURIComponent(address1)}&address2=${encodeURIComponent(address2)}`,
-    ];
-
-    for (const url of endpoints) {
-      const response = await fetch(url, {
+    const response = await fetch(
+      `https://api.rentcast.io/v1/properties?address=${encodeURIComponent(cleanAddress)}`,
+      {
         method: "GET",
         headers: {
           Accept: "application/json",
-          apikey: apiKey,
+          "X-Api-Key": apiKey,
         },
-      });
+      }
+    );
 
-      if (response.ok) {
-        const data = await response.json();
+    if (response.ok) {
+      const data = await response.json();
 
-        if (data.property && data.property.length > 0) {
-          const property = data.property[0];
-          const building = property.building || {};
-          const lot = property.lot || {};
-          const rooms = building.rooms || {};
-          const size = building.size || {};
-          const summary = property.summary || {};
+      // RentCast returns an array of properties
+      const properties = Array.isArray(data) ? data : [data];
 
-          return NextResponse.json({
-            address: property.address?.oneLine || address,
-            bedrooms:
-              rooms.beds?.toString() || rooms.bedrooms?.toString() || undefined,
-            bathrooms:
-              rooms.bathsTotal?.toString() ||
-              rooms.bathsFull?.toString() ||
-              undefined,
-            sqft:
-              size.livingSize || size.bldgSize || size.universalSize || undefined,
-            lotSize: lot.lotSize1
-              ? `${lot.lotSize1} sq ft`
-              : lot.depth && lot.frontage
-                ? `${lot.depth}x${lot.frontage}`
-                : undefined,
-            yearBuilt: building.yearBuilt || summary.yearBuilt || undefined,
-            propertyType: summary.proptype || summary.propClass || undefined,
-            found: true,
-          });
-        }
+      if (properties.length > 0 && properties[0].addressLine1) {
+        const property = properties[0];
+
+        return NextResponse.json({
+          address: property.formattedAddress || `${property.addressLine1}, ${property.city}, ${property.state} ${property.zipCode}`,
+          bedrooms: property.bedrooms?.toString() || undefined,
+          bathrooms: property.bathrooms?.toString() || undefined,
+          sqft: property.squareFootage || undefined,
+          lotSize: property.lotSize ? `${property.lotSize.toLocaleString()} sq ft` : undefined,
+          yearBuilt: property.yearBuilt || undefined,
+          propertyType: property.propertyType || undefined,
+          found: true,
+        });
       }
     }
 
