@@ -249,13 +249,13 @@ export function ListingResults({ listings, isLoading }: ListingResultsProps) {
 
   if (isLoading) {
     return (
-      <Card className="bg-white/90 backdrop-blur-sm shadow-xl border border-slate-200/60">
+      <Card className="bg-card/90 backdrop-blur-sm shadow-xl border border-border">
         <CardContent className="p-8">
           <div className="flex items-center justify-center py-12">
             <div className="text-center">
               <Loader2 className="w-8 h-8 text-blue-600 animate-spin mx-auto mb-6" />
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Generating 3 Variants</h3>
-              <p className="text-slate-600">Crafting professional MLS descriptions...</p>
+              <h3 className="text-xl font-bold text-foreground mb-3">Generating 3 Variants</h3>
+              <p className="text-muted-foreground">Crafting professional MLS descriptions...</p>
             </div>
           </div>
         </CardContent>
@@ -265,12 +265,12 @@ export function ListingResults({ listings, isLoading }: ListingResultsProps) {
 
   if (!listings || variantStates.length === 0) {
     return (
-      <Card className="bg-white/90 backdrop-blur-sm shadow-xl border border-slate-200/60">
+      <Card className="bg-card/90 backdrop-blur-sm shadow-xl border border-border">
         <CardContent className="p-8">
           <div className="text-center py-12">
-            <FileText className="w-10 h-10 text-slate-500 mx-auto mb-6" />
-            <h3 className="text-xl font-bold text-slate-900 mb-3">Ready to Generate</h3>
-            <p className="text-slate-600 mb-8 max-w-md mx-auto">
+            <FileText className="w-10 h-10 text-muted-foreground mx-auto mb-6" />
+            <h3 className="text-xl font-bold text-foreground mb-3">Ready to Generate</h3>
+            <p className="text-muted-foreground mb-8 max-w-md mx-auto">
               Fill in the property details to generate 3 professional MLS descriptions with fair housing compliance check.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm max-w-lg mx-auto">
@@ -301,10 +301,10 @@ export function ListingResults({ listings, isLoading }: ListingResultsProps) {
         const showFlags = expandedFlags.has(idx);
 
         return (
-          <Card key={idx} className="bg-white/90 backdrop-blur-sm shadow-xl border border-slate-200/60">
-            <CardHeader className={`bg-gradient-to-r ${colors.from} ${colors.to} border-b border-slate-100`}>
+          <Card key={idx} className="bg-card/90 backdrop-blur-sm shadow-xl border border-border">
+            <CardHeader className={`bg-gradient-to-r ${colors.from} ${colors.to} border-b border-border/50`}>
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-bold text-slate-900 flex items-center space-x-3">
+                <h3 className="text-lg font-bold text-foreground flex items-center space-x-3">
                   <div className={`w-8 h-8 bg-gradient-to-r ${colors.bg} rounded-lg flex items-center justify-center shadow-sm`}>
                     <FileText className="w-4 h-4 text-white" />
                   </div>
@@ -326,7 +326,7 @@ export function ListingResults({ listings, isLoading }: ListingResultsProps) {
                 </div>
               </div>
               {state.variant.headline && (
-                <p className="mt-2 text-sm font-semibold text-slate-800">{state.variant.headline}</p>
+                <p className="mt-2 text-sm font-semibold text-foreground">{state.variant.headline}</p>
               )}
             </CardHeader>
             <CardContent className="pt-4">
@@ -335,7 +335,7 @@ export function ListingResults({ listings, isLoading }: ListingResultsProps) {
               )}
 
               {/* Description with inline highlights when flags expanded */}
-              <div className="text-slate-700 leading-relaxed">
+              <div className="text-foreground/80 leading-relaxed">
                 {showFlags && state.flags.length > 0 ? (
                   <HighlightedText text={state.variant.description} flags={state.flags} />
                 ) : (
@@ -367,7 +367,7 @@ export function ListingResults({ listings, isLoading }: ListingResultsProps) {
                         </Badge>
                         <div>
                           <span className="font-medium">&ldquo;{flag.term}&rdquo;</span>
-                          <span className="text-slate-600"> — {flag.suggestion}</span>
+                          <span className="text-muted-foreground"> — {flag.suggestion}</span>
                         </div>
                       </li>
                     ))}
@@ -375,8 +375,8 @@ export function ListingResults({ listings, isLoading }: ListingResultsProps) {
                 </div>
               )}
 
-              <div className="mt-4 flex items-center justify-between pt-4 border-t border-slate-100">
-                <div className="flex items-center space-x-4 text-sm text-slate-500">
+              <div className="mt-4 flex items-center justify-between pt-4 border-t border-border/50">
+                <div className="flex items-center space-x-4 text-sm text-muted-foreground">
                   <span className="flex items-center space-x-1">
                     <CheckCircle className="w-4 h-4 text-green-500" />
                     <span>MLS-ready</span>

@@ -79,14 +79,14 @@ export function PhotoUpload({ onFeaturesExtracted }: PhotoUploadProps) {
   };
 
   return (
-    <Card className="p-4 border border-dashed border-slate-300 bg-slate-50/50 rounded-xl">
+    <Card className="p-4 border border-dashed border-border bg-muted/50 rounded-xl">
       <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2 text-sm font-medium text-slate-700">
+        <div className="flex items-center gap-2 text-sm font-medium text-foreground">
           <Camera className="w-4 h-4" />
           Photo Feature Extraction
         </div>
         {files.length > 0 && (
-          <span className="text-xs text-slate-500">{files.length}/8 photos</span>
+          <span className="text-xs text-muted-foreground">{files.length}/8 photos</span>
         )}
       </div>
 
@@ -104,13 +104,13 @@ export function PhotoUpload({ onFeaturesExtracted }: PhotoUploadProps) {
         <button
           type="button"
           onClick={() => inputRef.current?.click()}
-          className="w-full border-2 border-dashed border-slate-300 rounded-lg p-6 text-center hover:border-blue-400 hover:bg-blue-50/50 transition-colors"
+          className="w-full border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-blue-400 hover:bg-blue-50/50 transition-colors"
         >
-          <Camera className="w-8 h-8 text-slate-400 mx-auto mb-2" />
-          <p className="text-sm text-slate-600">
+          <Camera className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
+          <p className="text-sm text-muted-foreground">
             Drop listing photos or click to upload
           </p>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-muted-foreground mt-1">
             JPEG, PNG, or WebP — up to 8 photos
           </p>
         </button>
@@ -119,7 +119,7 @@ export function PhotoUpload({ onFeaturesExtracted }: PhotoUploadProps) {
           {/* Thumbnails */}
           <div className="grid grid-cols-4 gap-2 mb-3">
             {previews.map((src, i) => (
-              <div key={i} className="relative aspect-square rounded-lg overflow-hidden border border-slate-200">
+              <div key={i} className="relative aspect-square rounded-lg overflow-hidden border border-border">
                 <img src={src} alt={`Photo ${i + 1}`} className="w-full h-full object-cover" />
                 <button
                   type="button"
@@ -134,9 +134,9 @@ export function PhotoUpload({ onFeaturesExtracted }: PhotoUploadProps) {
               <button
                 type="button"
                 onClick={() => inputRef.current?.click()}
-                className="aspect-square rounded-lg border-2 border-dashed border-slate-300 flex items-center justify-center hover:border-blue-400 transition-colors"
+                className="aspect-square rounded-lg border-2 border-dashed border-border flex items-center justify-center hover:border-blue-400 transition-colors"
               >
-                <Camera className="w-5 h-5 text-slate-400" />
+                <Camera className="w-5 h-5 text-muted-foreground" />
               </button>
             )}
           </div>

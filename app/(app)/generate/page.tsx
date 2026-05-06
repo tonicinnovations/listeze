@@ -51,7 +51,7 @@ export default function GeneratePage() {
                 <h1 className="text-2xl font-bold text-blue-800">
                   ListEze MLS Generator
                 </h1>
-                <p className="text-sm text-slate-500 flex items-center space-x-1">
+                <p className="text-sm text-muted-foreground flex items-center space-x-1">
                   <Sparkles className="w-3 h-3" />
                   <span>AI-Powered Real Estate Copy</span>
                 </p>
@@ -65,16 +65,16 @@ export default function GeneratePage() {
       {/* Hero Section */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-slate-900 mb-3">
+          <h2 className="text-3xl font-bold text-foreground mb-3">
             Generate Professional MLS Listings
             <span className="text-blue-600"> in Seconds</span>
           </h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Smart address lookup automatically fills property details, then AI
             creates compelling, professional listing descriptions ready for MLS
             platforms.
           </p>
-          <div className="flex items-center justify-center space-x-6 mt-6 text-sm text-slate-500">
+          <div className="flex items-center justify-center space-x-6 mt-6 text-sm text-muted-foreground">
             <div className="flex items-center space-x-2">
               <TrendingUp className="w-4 h-4 text-blue-500" />
               <span>3 unique variations</span>

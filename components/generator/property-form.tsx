@@ -215,7 +215,7 @@ export function PropertyForm({
   };
 
   return (
-    <Card className="bg-gradient-to-br from-white to-blue-50 shadow-2xl border-2 border-blue-200">
+    <Card className="bg-card shadow-2xl border-2 border-blue-200 dark:border-blue-900">
       <CardHeader className="bg-gradient-to-r from-blue-500 to-purple-600 text-white border-b-2 border-blue-300">
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg">
@@ -232,7 +232,7 @@ export function PropertyForm({
       <CardContent className="pt-6">
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div>
-            <Label htmlFor="address" className="text-sm font-medium text-slate-700">
+            <Label htmlFor="address" className="text-sm font-medium text-foreground">
               Property Address *
             </Label>
             <div className="relative">
@@ -262,7 +262,7 @@ export function PropertyForm({
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label className="text-sm font-medium text-slate-700">Bedrooms *</Label>
+              <Label className="text-sm font-medium text-foreground">Bedrooms *</Label>
               <Select
                 onValueChange={(value) => form.setValue("bedrooms", value ?? "")}
                 value={form.watch("bedrooms")}
@@ -281,7 +281,7 @@ export function PropertyForm({
               )}
             </div>
             <div>
-              <Label className="text-sm font-medium text-slate-700">Bathrooms *</Label>
+              <Label className="text-sm font-medium text-foreground">Bathrooms *</Label>
               <Select
                 onValueChange={(value) => form.setValue("bathrooms", value ?? "")}
                 value={form.watch("bathrooms")}
@@ -303,14 +303,14 @@ export function PropertyForm({
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="sqft" className="text-sm font-medium text-slate-700">Square Footage *</Label>
+              <Label htmlFor="sqft" className="text-sm font-medium text-foreground">Square Footage *</Label>
               <Input id="sqft" type="number" placeholder="2,500" min="1" className="mt-2" {...form.register("sqft", { valueAsNumber: true })} />
               {form.formState.errors.sqft && (
                 <p className="text-sm text-red-600 mt-1">{form.formState.errors.sqft.message}</p>
               )}
             </div>
             <div>
-              <Label htmlFor="lotSize" className="text-sm font-medium text-slate-700">Lot Size</Label>
+              <Label htmlFor="lotSize" className="text-sm font-medium text-foreground">Lot Size</Label>
               <Input id="lotSize" placeholder="0.25 acres" className="mt-2" {...form.register("lotSize")} />
             </div>
           </div>
@@ -324,18 +324,18 @@ export function PropertyForm({
           />
 
           <div>
-            <Label htmlFor="features" className="text-sm font-medium text-slate-700">Key Features</Label>
+            <Label htmlFor="features" className="text-sm font-medium text-foreground">Key Features</Label>
             <Textarea id="features" rows={3} placeholder="Updated kitchen, hardwood floors, fireplace, garage, pool..." className="mt-2 resize-none" {...form.register("features")} />
           </div>
 
           <div>
-            <Label htmlFor="locationHighlights" className="text-sm font-medium text-slate-700">Neighborhood & Location Highlights</Label>
+            <Label htmlFor="locationHighlights" className="text-sm font-medium text-foreground">Neighborhood & Location Highlights</Label>
             <Textarea id="locationHighlights" rows={3} placeholder="Close to schools, shopping centers, parks, downtown area..." className="mt-2 resize-none" {...form.register("locationHighlights")} />
           </div>
 
           {/* Language Toggle */}
           <div>
-            <Label className="text-sm font-medium text-slate-700 mb-2 block">Output Language</Label>
+            <Label className="text-sm font-medium text-foreground mb-2 block">Output Language</Label>
             <div className="flex gap-2">
               <button
                 type="button"
@@ -343,7 +343,7 @@ export function PropertyForm({
                 className={`flex-1 rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${
                   language === "en"
                     ? "bg-blue-600 text-white border-blue-600"
-                    : "bg-white text-slate-700 border-slate-300 hover:bg-slate-50"
+                    : "bg-card text-foreground border-border hover:bg-muted"
                 }`}
               >
                 English
@@ -354,7 +354,7 @@ export function PropertyForm({
                 className={`flex-1 rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${
                   language === "es"
                     ? "bg-blue-600 text-white border-blue-600"
-                    : "bg-white text-slate-700 border-slate-300 hover:bg-slate-50"
+                    : "bg-card text-foreground border-border hover:bg-muted"
                 }`}
               >
                 Español
@@ -364,7 +364,7 @@ export function PropertyForm({
 
           {/* Tone Preset Chips */}
           <div>
-            <Label className="text-sm font-medium text-slate-700 mb-2 block">Tone Preset</Label>
+            <Label className="text-sm font-medium text-foreground mb-2 block">Tone Preset</Label>
             <div className="flex flex-wrap gap-2">
               {(Object.keys(TONE_LABELS) as TonePreset[]).map((key) => (
                 <Tooltip key={key}>
@@ -374,7 +374,7 @@ export function PropertyForm({
                     className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
                       tone === key
                         ? "bg-blue-600 text-white shadow-sm"
-                        : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                        : "bg-muted text-foreground hover:bg-muted/80"
                     }`}
                   >
                     {TONE_ICON_MAP[key]}
@@ -390,7 +390,7 @@ export function PropertyForm({
 
           {/* Length Toggle */}
           <div>
-            <Label className="text-sm font-medium text-slate-700 mb-2 block">Description Length</Label>
+            <Label className="text-sm font-medium text-foreground mb-2 block">Description Length</Label>
             <div className="flex gap-2">
               {(["short", "medium", "long"] as const).map((l) => (
                 <button
@@ -400,7 +400,7 @@ export function PropertyForm({
                   className={`flex-1 rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${
                     length === l
                       ? "bg-blue-600 text-white border-blue-600"
-                      : "bg-white text-slate-700 border-slate-300 hover:bg-slate-50"
+                      : "bg-card text-foreground border-border hover:bg-muted"
                   }`}
                 >
                   {l === "short" ? "Short (~250 chars)" : l === "medium" ? "Medium (~500 chars)" : "Long (~1000+ chars)"}
