@@ -22,6 +22,10 @@ export function LifetimeCounter() {
 
   if (spotsLeft === null) return null;
 
+  // Only show counter once 50+ have sold
+  const sold = 100 - spotsLeft;
+  if (sold < 50 && spotsLeft > 0) return null;
+
   return (
     <span className="font-semibold">
       {spotsLeft > 0 ? `${spotsLeft} / 100 spots left` : "Sold out!"}
