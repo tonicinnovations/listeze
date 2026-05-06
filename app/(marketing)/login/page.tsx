@@ -16,6 +16,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(false);
 
   const supabase = createClient();
 
@@ -75,8 +76,8 @@ export default function LoginPage() {
               ListEze
             </span>
           </Link>
-          <h1 className="text-2xl font-bold text-slate-900">Welcome</h1>
-          <p className="text-slate-600">
+          <h1 className="text-2xl font-bold">Welcome</h1>
+          <p className="text-muted-foreground">
             Sign in to start generating MLS listings
           </p>
         </CardHeader>
@@ -96,7 +97,7 @@ export default function LoginPage() {
                 <div>
                   <Label htmlFor="magic-email">Email</Label>
                   <div className="relative mt-1">
-                    <Mail className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+                    <Mail className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
                     <Input
                       id="magic-email"
                       type="email"
@@ -115,18 +116,18 @@ export default function LoginPage() {
                 >
                   {isLoading ? "Sending..." : "Send Magic Link"}
                 </Button>
-                <p className="text-xs text-center text-slate-500">
+                <p className="text-xs text-center text-muted-foreground">
                   We&apos;ll email you a link to sign in — no password needed.
                 </p>
               </form>
             </TabsContent>
 
             <TabsContent value="password">
-              <form onSubmit={handleSignIn} className="space-y-4">
+              <form onSubmit={isSignUp ? handleSignUp : handleSignIn} className="space-y-4">
                 <div>
                   <Label htmlFor="pw-email">Email</Label>
                   <div className="relative mt-1">
-                    <Mail className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+                    <Mail className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
                     <Input
                       id="pw-email"
                       type="email"
@@ -141,7 +142,7 @@ export default function LoginPage() {
                 <div>
                   <Label htmlFor="pw-password">Password</Label>
                   <div className="relative mt-1">
-                    <Lock className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+                    <Lock className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
                     <Input
                       id="pw-password"
                       type="password"
@@ -156,20 +157,24 @@ export default function LoginPage() {
                 </div>
                 <Button
                   type="submit"
-                  className="w-full bg-blue-600 hover:bg-blue-700"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                   disabled={isLoading}
                 >
-                  {isLoading ? "Signing in..." : "Sign In"}
+                  {isLoading
+                    ? isSignUp ? "Creating account..." : "Signing in..."
+                    : isSignUp ? "Create Account" : "Sign In"}
                 </Button>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  className="w-full"
-                  onClick={handleSignUp}
-                  disabled={isLoading}
-                >
-                  Don&apos;t have an account? Sign Up
-                </Button>
+                <div className="text-center">
+                  <button
+                    type="button"
+                    onClick={() => setIsSignUp(!isSignUp)}
+                    className="text-sm text-blue-600 hover:underline"
+                  >
+                    {isSignUp
+                      ? "Already have an account? Sign in"
+                      : "Don\u0027t have an account? Create one"}
+                  </button>
+                </div>
               </form>
             </TabsContent>
           </Tabs>
