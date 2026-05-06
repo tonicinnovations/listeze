@@ -66,7 +66,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 flex items-center justify-center px-4">
       <Card className="w-full max-w-md shadow-xl">
         <CardHeader className="text-center pb-4">
           <Link href="/" className="inline-flex items-center justify-center gap-2 mb-4">
