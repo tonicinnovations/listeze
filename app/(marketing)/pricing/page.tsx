@@ -84,9 +84,9 @@ const tiers = [
 
 export default function PricingPage() {
   return (
-    <div className="bg-slate-50 text-slate-900 font-sans">
+    <div className="bg-muted text-foreground font-sans">
       {/* Header */}
-      <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/70 bg-white/80 border-b border-slate-200">
+      <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-background/70 bg-background/80 border-b border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <Link href="/" className="flex items-center gap-2">
@@ -126,7 +126,7 @@ export default function PricingPage() {
             <h1 className="text-4xl font-extrabold">
               Simple, transparent pricing
             </h1>
-            <p className="mt-3 text-lg text-slate-600">
+            <p className="mt-3 text-lg text-muted-foreground">
               Start free. Upgrade when you&apos;re ready.
             </p>
           </div>
@@ -138,23 +138,23 @@ export default function PricingPage() {
                 className={`rounded-3xl p-6 flex flex-col ${
                   tier.highlight
                     ? "border-2 border-blue-500 shadow-xl relative"
-                    : "border border-slate-200"
+                    : "border border-border"
                 }`}
               >
                 {tier.highlight && (
-                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-3 py-1">
+                  <Badge className="absolute -top-2 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-3 py-1">
                     Most Popular
                   </Badge>
                 )}
                 <div className="mb-4">
                   <h3 className="text-lg font-bold">{tier.name}</h3>
-                  <p className="text-sm text-slate-500 mt-1">
+                  <p className="text-sm text-muted-foreground mt-1">
                     {tier.description}
                   </p>
                 </div>
                 <div className="mb-6">
                   <span className="text-4xl font-extrabold">{tier.price}</span>
-                  <span className="text-slate-500">{tier.period}</span>
+                  <span className="text-muted-foreground">{tier.period}</span>
                 </div>
                 <ul className="space-y-2 mb-8 flex-1">
                   {tier.features.map((feature) => (
@@ -198,14 +198,14 @@ export default function PricingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-slate-200">
+      <footer className="bg-card border-t border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <Home className="h-6 w-6 text-blue-600" />
               <span className="font-semibold">ListEze MLS Generator</span>
             </div>
-            <nav className="text-sm text-slate-600 flex items-center gap-4">
+            <nav className="text-sm text-muted-foreground flex items-center gap-4">
               <Link href="/privacy" className="hover:text-blue-700">Privacy</Link>
               <Link href="/terms" className="hover:text-blue-700">Terms</Link>
             </nav>

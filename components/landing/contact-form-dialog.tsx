@@ -53,7 +53,7 @@ export function ContactFormDialog() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger className="p-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200">
+      <DialogTrigger className="p-2 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200">
         <HelpCircle className="w-5 h-5" />
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">

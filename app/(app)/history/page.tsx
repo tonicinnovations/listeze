@@ -177,9 +177,9 @@ export default function HistoryPage() {
   };
 
   return (
-    <div className="font-sans min-h-screen bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100">
+    <div className="font-sans min-h-screen bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       {/* Header */}
-      <header className="bg-white border-b-4 border-blue-500 sticky top-0 z-50 shadow-lg">
+      <header className="bg-card border-b-4 border-blue-500 sticky top-0 z-50 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link href="/generate" className="flex items-center space-x-3">
@@ -205,7 +205,7 @@ export default function HistoryPage() {
           <CardContent className="pt-6">
             <form onSubmit={handleSearch} className="flex gap-3 flex-wrap">
               <div className="relative flex-1 min-w-[200px]">
-                <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+                <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground/70" />
                 <Input
                   placeholder="Search by address..."
                   className="pl-10"
@@ -235,13 +235,13 @@ export default function HistoryPage() {
         {loading ? (
           <div className="text-center py-16">
             <Loader2 className="w-8 h-8 text-blue-600 animate-spin mx-auto mb-4" />
-            <p className="text-slate-600">Loading history...</p>
+            <p className="text-muted-foreground">Loading history...</p>
           </div>
         ) : listings.length === 0 ? (
           <div className="text-center py-16">
-            <FileText className="w-12 h-12 text-slate-400 mx-auto mb-4" />
-            <h3 className="text-lg font-bold text-slate-900 mb-2">No listings yet</h3>
-            <p className="text-slate-600 mb-6">Generate your first MLS listing to see it here.</p>
+            <FileText className="w-12 h-12 text-muted-foreground/70 mx-auto mb-4" />
+            <h3 className="text-lg font-bold text-foreground mb-2">No listings yet</h3>
+            <p className="text-muted-foreground mb-6">Generate your first MLS listing to see it here.</p>
             <Link href="/generate">
               <Button className="bg-blue-600 hover:bg-blue-700 text-white">Generate a Listing</Button>
             </Link>
@@ -254,7 +254,7 @@ export default function HistoryPage() {
               const genCount = listing.generations.length;
 
               return (
-                <Card key={listing.id} className="bg-white/95">
+                <Card key={listing.id} className="bg-card/95">
                   {/* Row */}
                   <button
                     onClick={() => setExpandedId(isExpanded ? null : listing.id)}
@@ -264,8 +264,8 @@ export default function HistoryPage() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3 flex-1 min-w-0">
                           <div className="min-w-0 flex-1">
-                            <h3 className="font-semibold text-slate-900 truncate">{listing.address}</h3>
-                            <p className="text-xs text-slate-500 mt-0.5">
+                            <h3 className="font-semibold text-foreground truncate">{listing.address}</h3>
+                            <p className="text-xs text-muted-foreground mt-0.5">
                               {formatDate(listing.created_at)}
                               {listing.tone_preset && ` · ${TONE_LABELS[listing.tone_preset as TonePreset] || listing.tone_preset}`}
                               {listing.square_feet && ` · ${listing.square_feet} sqft`}
@@ -275,7 +275,7 @@ export default function HistoryPage() {
                         <div className="flex items-center gap-2 shrink-0">
                           <ScoreBadge score={bestScore} />
                           <Badge variant="secondary" className="text-xs">{genCount} gen{genCount !== 1 ? "s" : ""}</Badge>
-                          {isExpanded ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
+                          {isExpanded ? <ChevronUp className="w-4 h-4 text-muted-foreground/70" /> : <ChevronDown className="w-4 h-4 text-muted-foreground/70" />}
                         </div>
                       </div>
                     </CardHeader>
@@ -283,7 +283,7 @@ export default function HistoryPage() {
 
                   {/* Expanded detail */}
                   {isExpanded && (
-                    <CardContent className="pt-0 border-t border-slate-100">
+                    <CardContent className="pt-0 border-t border-border/50">
                       <div className="flex gap-2 mb-4 mt-3">
                         <Link href={getRegenerateUrl(listing)}>
                           <Button size="sm" variant="outline" className="text-xs">
@@ -304,7 +304,7 @@ export default function HistoryPage() {
                       </div>
 
                       {listing.generations.length === 0 ? (
-                        <p className="text-sm text-slate-500">No generations found.</p>
+                        <p className="text-sm text-muted-foreground">No generations found.</p>
                       ) : (
                         <div className="space-y-3">
                           {listing.generations.map((gen) => {
@@ -318,7 +318,7 @@ export default function HistoryPage() {
                             }
 
                             return (
-                              <div key={gen.id} className="rounded-lg border border-slate-200 p-3">
+                              <div key={gen.id} className="rounded-lg border border-border p-3">
                                 <div className="flex items-center justify-between mb-2">
                                   <div className="flex items-center gap-2">
                                     <Badge variant="secondary" className="text-xs">{getFormatLabel(gen.format)}</Badge>
@@ -333,7 +333,7 @@ export default function HistoryPage() {
                                     <Copy className="w-3 h-3 mr-1" /> Copy
                                   </Button>
                                 </div>
-                                <p className="text-sm text-slate-700 leading-relaxed line-clamp-4 whitespace-pre-line">
+                                <p className="text-sm text-foreground/80 leading-relaxed line-clamp-4 whitespace-pre-line">
                                   {displayText}
                                 </p>
                               </div>

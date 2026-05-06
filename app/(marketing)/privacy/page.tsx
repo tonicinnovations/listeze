@@ -1,7 +1,7 @@
 // v1.0 — Privacy policy stub
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-white py-16">
+    <div className="min-h-screen bg-card py-16">
       <div className="mx-auto max-w-3xl px-4 prose">
         <h1>Privacy Policy</h1>
         <p>Last updated: May 2026</p>

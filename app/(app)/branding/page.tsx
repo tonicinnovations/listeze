@@ -110,8 +110,8 @@ export default function BrandingPage() {
   const canBrand = ["team", "brokerage", "lifetime"].includes(userPlan);
 
   return (
-    <div className="font-sans min-h-screen bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100">
-      <header className="bg-white border-b-4 border-blue-500 sticky top-0 z-50 shadow-lg">
+    <div className="font-sans min-h-screen bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+      <header className="bg-card border-b-4 border-blue-500 sticky top-0 z-50 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link href="/generate" className="flex items-center space-x-3">
@@ -131,18 +131,18 @@ export default function BrandingPage() {
           </div>
         ) : !canBrand ? (
           <Card className="p-8 text-center">
-            <Palette className="w-12 h-12 text-slate-400 mx-auto mb-4" />
+            <Palette className="w-12 h-12 text-muted-foreground/70 mx-auto mb-4" />
             <h2 className="text-xl font-bold mb-2">Brand customization requires a Team or Brokerage plan</h2>
-            <p className="text-slate-600 mb-6">Upgrade to add your logo and brand colors to exports.</p>
+            <p className="text-muted-foreground mb-6">Upgrade to add your logo and brand colors to exports.</p>
             <Link href="/pricing">
               <Button className="bg-blue-600 hover:bg-blue-700 text-white">View Plans</Button>
             </Link>
           </Card>
         ) : !teamId ? (
           <Card className="p-8 text-center">
-            <Palette className="w-12 h-12 text-slate-400 mx-auto mb-4" />
+            <Palette className="w-12 h-12 text-muted-foreground/70 mx-auto mb-4" />
             <h2 className="text-xl font-bold mb-2">Create a team first</h2>
-            <p className="text-slate-600 mb-6">Set up your team to access branding options.</p>
+            <p className="text-muted-foreground mb-6">Set up your team to access branding options.</p>
             <Link href="/team">
               <Button className="bg-blue-600 hover:bg-blue-700 text-white">Go to Team</Button>
             </Link>
@@ -166,11 +166,11 @@ export default function BrandingPage() {
                   }}
                 />
                 <div className="flex items-center gap-6">
-                  <div className="w-24 h-24 rounded-xl border-2 border-dashed border-slate-300 flex items-center justify-center bg-white overflow-hidden">
+                  <div className="w-24 h-24 rounded-xl border-2 border-dashed border-border flex items-center justify-center bg-card overflow-hidden">
                     {logoUrl ? (
                       <img src={logoUrl} alt="Logo" className="w-full h-full object-contain p-2" />
                     ) : (
-                      <Upload className="w-8 h-8 text-slate-400" />
+                      <Upload className="w-8 h-8 text-muted-foreground/70" />
                     )}
                   </div>
                   <div>
@@ -178,7 +178,7 @@ export default function BrandingPage() {
                       <Upload className="w-4 h-4 mr-2" />
                       {logoUrl ? "Replace Logo" : "Upload Logo"}
                     </Button>
-                    <p className="text-xs text-slate-500 mt-2">PNG, JPG, or SVG. Will appear on exports.</p>
+                    <p className="text-xs text-muted-foreground mt-2">PNG, JPG, or SVG. Will appear on exports.</p>
                   </div>
                 </div>
               </CardContent>
@@ -198,7 +198,7 @@ export default function BrandingPage() {
                         type="color"
                         value={primaryColor}
                         onChange={(e) => setPrimaryColor(e.target.value)}
-                        className="w-12 h-10 rounded border border-slate-300 cursor-pointer"
+                        className="w-12 h-10 rounded border border-border cursor-pointer"
                       />
                       <Input
                         value={primaryColor}
@@ -220,24 +220,24 @@ export default function BrandingPage() {
                 <h2 className="text-lg font-bold">Export Preview</h2>
               </CardHeader>
               <CardContent>
-                <div className="border border-slate-200 rounded-xl p-6 bg-white">
+                <div className="border border-border rounded-xl p-6 bg-card">
                   <div className="flex items-center justify-between mb-4 pb-4 border-b" style={{ borderColor: primaryColor }}>
                     {logoUrl ? (
                       <img src={logoUrl} alt="Logo" className="h-8 object-contain" />
                     ) : (
-                      <div className="h-8 w-24 bg-slate-200 rounded" />
+                      <div className="h-8 w-24 bg-muted rounded" />
                     )}
-                    <span className="text-xs text-slate-500">Branded Export</span>
+                    <span className="text-xs text-muted-foreground">Branded Export</span>
                   </div>
                   <h3 className="font-bold text-lg" style={{ color: primaryColor }}>
                     Beautiful 4-Bed Home in Scottsdale
                   </h3>
-                  <p className="text-sm text-slate-600 mt-2 leading-relaxed">
+                  <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
                     This is a preview of how your branded exports will look. Your logo and brand color will appear on .docx, PDF flyer, and email exports.
                   </p>
-                  <div className="mt-4 pt-4 border-t border-slate-200 flex items-center justify-between">
-                    <span className="text-xs text-slate-500">Generated by ListEze</span>
-                    <FileText className="w-4 h-4 text-slate-400" />
+                  <div className="mt-4 pt-4 border-t border-border flex items-center justify-between">
+                    <span className="text-xs text-muted-foreground">Generated by ListEze</span>
+                    <FileText className="w-4 h-4 text-muted-foreground/70" />
                   </div>
                 </div>
               </CardContent>

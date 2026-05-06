@@ -226,8 +226,8 @@ export default function TeamPage() {
   const canManageTeam = !["trial", "solo"].includes(userPlan);
 
   return (
-    <div className="font-sans min-h-screen bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100">
-      <header className="bg-white border-b-4 border-blue-500 sticky top-0 z-50 shadow-lg">
+    <div className="font-sans min-h-screen bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+      <header className="bg-card border-b-4 border-blue-500 sticky top-0 z-50 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link href="/generate" className="flex items-center space-x-3">
@@ -247,9 +247,9 @@ export default function TeamPage() {
           </div>
         ) : !canManageTeam ? (
           <Card className="p-8 text-center">
-            <Users className="w-12 h-12 text-slate-400 mx-auto mb-4" />
+            <Users className="w-12 h-12 text-muted-foreground/70 mx-auto mb-4" />
             <h2 className="text-xl font-bold mb-2">Teams require a Team or Brokerage plan</h2>
-            <p className="text-slate-600 mb-6">Upgrade to invite team members and share listings.</p>
+            <p className="text-muted-foreground mb-6">Upgrade to invite team members and share listings.</p>
             <Link href="/pricing">
               <Button className="bg-blue-600 hover:bg-blue-700 text-white">View Plans</Button>
             </Link>
@@ -297,7 +297,7 @@ export default function TeamPage() {
                     {inviting ? <Loader2 className="w-4 h-4 animate-spin" /> : <><UserPlus className="w-4 h-4 mr-1" /> Invite</>}
                   </Button>
                 </div>
-                <p className="text-xs text-slate-500 mt-2">User must have a ListEze account first.</p>
+                <p className="text-xs text-muted-foreground mt-2">User must have a ListEze account first.</p>
               </CardContent>
             </Card>
 
@@ -309,18 +309,18 @@ export default function TeamPage() {
               <CardContent>
                 <div className="space-y-3">
                   {members.map((m) => (
-                    <div key={m.user_id} className="flex items-center justify-between py-2 border-b border-slate-100 last:border-0">
+                    <div key={m.user_id} className="flex items-center justify-between py-2 border-b border-border/50 last:border-0">
                       <div className="flex items-center gap-3">
                         {m.role === "owner" ? (
                           <Crown className="w-4 h-4 text-amber-500" />
                         ) : m.role === "admin" ? (
                           <Shield className="w-4 h-4 text-blue-500" />
                         ) : (
-                          <Users className="w-4 h-4 text-slate-400" />
+                          <Users className="w-4 h-4 text-muted-foreground/70" />
                         )}
                         <div>
                           <p className="text-sm font-medium">{m.user_email}</p>
-                          <p className="text-xs text-slate-500 capitalize">{m.role}</p>
+                          <p className="text-xs text-muted-foreground capitalize">{m.role}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">

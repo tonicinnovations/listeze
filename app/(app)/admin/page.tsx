@@ -139,8 +139,8 @@ export default async function AdminPage() {
     : 0;
 
   return (
-    <div className="font-sans min-h-screen bg-slate-100">
-      <header className="bg-white border-b-4 border-red-500 sticky top-0 z-50 shadow-lg">
+    <div className="font-sans min-h-screen bg-muted">
+      <header className="bg-card border-b-4 border-red-500 sticky top-0 z-50 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link href="/generate" className="flex items-center space-x-3">
@@ -161,28 +161,28 @@ export default async function AdminPage() {
             <CardContent className="pt-6 text-center">
               <Users className="w-6 h-6 text-blue-600 mx-auto mb-2" />
               <div className="text-3xl font-bold">{data.signupsToday}</div>
-              <div className="text-xs text-slate-500">Signups today</div>
+              <div className="text-xs text-muted-foreground">Signups today</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="pt-6 text-center">
               <FileText className="w-6 h-6 text-green-600 mx-auto mb-2" />
               <div className="text-3xl font-bold">{data.generationsToday}</div>
-              <div className="text-xs text-slate-500">Generations today</div>
+              <div className="text-xs text-muted-foreground">Generations today</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="pt-6 text-center">
               <DollarSign className="w-6 h-6 text-emerald-600 mx-auto mb-2" />
               <div className="text-3xl font-bold">${data.mrr}</div>
-              <div className="text-xs text-slate-500">MRR</div>
+              <div className="text-xs text-muted-foreground">MRR</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="pt-6 text-center">
               <TrendingUp className="w-6 h-6 text-purple-600 mx-auto mb-2" />
               <div className="text-3xl font-bold">{data.totalUsers}</div>
-              <div className="text-xs text-slate-500">Total users</div>
+              <div className="text-xs text-muted-foreground">Total users</div>
             </CardContent>
           </Card>
         </div>
@@ -196,7 +196,7 @@ export default async function AdminPage() {
                 {Object.entries(data.planBreakdown).map(([plan, count]) => (
                   <div key={plan} className="flex items-center justify-between text-sm">
                     <span className="capitalize font-medium">{plan}</span>
-                    <span className="text-slate-600">{count} users</span>
+                    <span className="text-muted-foreground">{count} users</span>
                   </div>
                 ))}
               </div>
@@ -208,7 +208,7 @@ export default async function AdminPage() {
             <CardHeader><h2 className="font-bold">Lifetime Sales</h2></CardHeader>
             <CardContent>
               <div className="text-3xl font-bold mb-2">{data.lifetimeSold} / 100</div>
-              <div className="w-full bg-slate-200 rounded-full h-3 mb-4">
+              <div className="w-full bg-muted rounded-full h-3 mb-4">
                 <div
                   className="bg-amber-500 h-3 rounded-full"
                   style={{ width: `${Math.min(data.lifetimeSold, 100)}%` }}
@@ -216,9 +216,9 @@ export default async function AdminPage() {
               </div>
               {data.lifetimeBuyers.length > 0 && (
                 <div className="space-y-1">
-                  <p className="text-xs font-medium text-slate-500 mb-2">Last 10 buyers</p>
+                  <p className="text-xs font-medium text-muted-foreground mb-2">Last 10 buyers</p>
                   {data.lifetimeBuyers.map((b, i) => (
-                    <div key={i} className="flex justify-between text-xs text-slate-600">
+                    <div key={i} className="flex justify-between text-xs text-muted-foreground">
                       <span>{b.email}</span>
                       <span>{new Date(b.created_at).toLocaleDateString()}</span>
                     </div>
@@ -236,20 +236,20 @@ export default async function AdminPage() {
                 <div>
                   <Cpu className="w-5 h-5 text-red-500 mx-auto mb-1" />
                   <div className="text-lg font-bold">${(data.totalCostCents / 100).toFixed(2)}</div>
-                  <div className="text-xs text-slate-500">Anthropic cost</div>
+                  <div className="text-xs text-muted-foreground">Anthropic cost</div>
                 </div>
                 <div>
                   <DollarSign className="w-5 h-5 text-green-500 mx-auto mb-1" />
                   <div className="text-lg font-bold">${data.mrr}</div>
-                  <div className="text-xs text-slate-500">Revenue (MRR)</div>
+                  <div className="text-xs text-muted-foreground">Revenue (MRR)</div>
                 </div>
                 <div>
                   <TrendingUp className="w-5 h-5 text-blue-500 mx-auto mb-1" />
                   <div className="text-lg font-bold">{marginPercent}%</div>
-                  <div className="text-xs text-slate-500">Margin</div>
+                  <div className="text-xs text-muted-foreground">Margin</div>
                 </div>
               </div>
-              <p className="text-xs text-slate-500 mt-3">{data.monthGenCount} generations this month</p>
+              <p className="text-xs text-muted-foreground mt-3">{data.monthGenCount} generations this month</p>
             </CardContent>
           </Card>
 
@@ -258,13 +258,13 @@ export default async function AdminPage() {
             <CardHeader><h2 className="font-bold">Top Users (This Month)</h2></CardHeader>
             <CardContent>
               {data.topUsers.length === 0 ? (
-                <p className="text-sm text-slate-500">No generations yet this month.</p>
+                <p className="text-sm text-muted-foreground">No generations yet this month.</p>
               ) : (
                 <div className="space-y-2">
                   {data.topUsers.map((u, i) => (
                     <div key={u.id} className="flex items-center justify-between text-sm">
                       <div className="flex items-center gap-2">
-                        <span className="text-slate-400 w-5">{i + 1}.</span>
+                        <span className="text-muted-foreground/70 w-5">{i + 1}.</span>
                         <span className="truncate max-w-[200px]">{u.email}</span>
                         <Badge variant="secondary" className="text-xs">{u.plan}</Badge>
                       </div>
@@ -284,7 +284,7 @@ export default async function AdminPage() {
             <div className="overflow-x-auto">
               <table className="min-w-full text-sm">
                 <thead>
-                  <tr className="text-left text-xs text-slate-500 border-b">
+                  <tr className="text-left text-xs text-muted-foreground border-b">
                     <th className="pb-2 pr-4">Date</th>
                     <th className="pb-2 pr-4">Format</th>
                     <th className="pb-2 pr-4">FH Score</th>
@@ -294,8 +294,8 @@ export default async function AdminPage() {
                 </thead>
                 <tbody>
                   {data.recentGenerations.map((g) => (
-                    <tr key={g.id} className="border-b border-slate-100">
-                      <td className="py-2 pr-4 text-xs text-slate-600">
+                    <tr key={g.id} className="border-b border-border/50">
+                      <td className="py-2 pr-4 text-xs text-muted-foreground">
                         {new Date(g.created_at).toLocaleString()}
                       </td>
                       <td className="py-2 pr-4">
@@ -307,11 +307,11 @@ export default async function AdminPage() {
                             <ShieldCheck className="w-3 h-3 inline mr-1" />{g.fair_housing_score}
                           </span>
                         ) : (
-                          <span className="text-slate-400">—</span>
+                          <span className="text-muted-foreground/70">—</span>
                         )}
                       </td>
                       <td className="py-2 pr-4 text-xs">${((g.cost_cents || 0) / 100).toFixed(3)}</td>
-                      <td className="py-2 text-xs text-slate-500">{g.model_used || "—"}</td>
+                      <td className="py-2 text-xs text-muted-foreground">{g.model_used || "—"}</td>
                     </tr>
                   ))}
                 </tbody>

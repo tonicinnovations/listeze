@@ -136,7 +136,7 @@ export function MarketingKit({ propertyData }: { propertyData: PropertyData }) {
 
         {outputs.length === 0 ? (
           <div className="space-y-4">
-            <p className="text-sm text-slate-600">
+            <p className="text-sm text-muted-foreground">
               Select the formats you want to generate from this listing:
             </p>
             <div className="grid grid-cols-2 gap-3">
@@ -147,7 +147,7 @@ export function MarketingKit({ propertyData }: { propertyData: PropertyData }) {
                   className={`rounded-lg border p-3 text-left text-sm font-medium transition-colors ${
                     selectedFormats.has(f.key)
                       ? "border-blue-500 bg-blue-50 text-blue-700"
-                      : "border-slate-200 text-slate-600 hover:bg-slate-50"
+                      : "border-border text-muted-foreground hover:bg-muted"
                   }`}
                 >
                   {f.label}
@@ -198,7 +198,7 @@ export function MarketingKit({ propertyData }: { propertyData: PropertyData }) {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <pre className="whitespace-pre-wrap text-sm text-slate-700 font-sans leading-relaxed">
+                      <pre className="whitespace-pre-wrap text-sm text-foreground/80 font-sans leading-relaxed">
                         {displayText}
                       </pre>
                     </CardContent>
