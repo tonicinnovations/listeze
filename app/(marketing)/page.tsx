@@ -1,5 +1,5 @@
 // v1.7 — Landing page (Phase 8 polish: samples, ChatGPT comparison, fair housing hero, no fake testimonials)
-import { Home, Check, ShieldCheck, Sparkles, Package, Camera, Globe } from "lucide-react";
+import { Home, Check, ShieldCheck, Sparkles, Package, Camera, Globe, Lock, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -7,6 +7,7 @@ import Link from "next/link";
 import { LandingDemo } from "@/components/landing/demo";
 import { ContactFormDialog } from "@/components/landing/contact-form-dialog";
 import { LifetimeCounter } from "@/components/landing/lifetime-counter";
+import { UsageCounter } from "@/components/landing/usage-counter";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 
 const SAMPLE_OUTPUTS = [
@@ -126,6 +127,16 @@ export default function LandingPage() {
               <p className="mt-3 text-xs text-muted-foreground">
                 3 free generations, no credit card required.
               </p>
+              <div className="mt-4 flex items-center gap-4 text-xs text-muted-foreground">
+                <span className="flex items-center gap-1">
+                  <Lock className="w-3 h-3" />
+                  256-bit SSL encrypted
+                </span>
+                <span className="flex items-center gap-1">
+                  <CreditCard className="w-3 h-3" />
+                  Secured by Stripe
+                </span>
+              </div>
             </div>
 
             {/* Demo Widget */}
@@ -134,9 +145,12 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Built for strip */}
+      {/* Social proof strip */}
       <section className="py-8 bg-card border-y border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-6">
+            <UsageCounter />
+          </div>
           <p className="text-center text-xs text-muted-foreground/70 mb-4">
             Built for agents at every brokerage. Logos shown for industry context — not endorsements.
           </p>

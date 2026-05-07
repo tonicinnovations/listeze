@@ -1,5 +1,5 @@
 // v1.2 — Pricing page with four tiers + lifetime banner
-import { Check, Home } from "lucide-react";
+import { Check, Home, Lock, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -193,6 +193,18 @@ export default function PricingPage() {
                 )}
               </Card>
             ))}
+          </div>
+
+          <div className="mt-8 flex items-center justify-center gap-6 text-xs text-muted-foreground">
+            <span className="flex items-center gap-1">
+              <Lock className="w-3 h-3" />
+              256-bit SSL encrypted
+            </span>
+            <span className="flex items-center gap-1">
+              <CreditCard className="w-3 h-3" />
+              Secured by Stripe
+            </span>
+            <span>30-day money-back guarantee</span>
           </div>
         </div>
       </section>
