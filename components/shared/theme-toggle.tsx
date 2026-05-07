@@ -1,10 +1,16 @@
-// v1.14b — Theme toggle button (light/dark/system)
+// v2.0 — Theme dropdown (Light / Dark / System)
 "use client";
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Sun, Moon, Monitor } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -13,20 +19,29 @@ export function ThemeToggle() {
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
-  const next = theme === "light" ? "dark" : theme === "dark" ? "system" : "light";
-  const Icon = theme === "dark" ? Moon : theme === "light" ? Sun : Monitor;
-  const label = theme === "dark" ? "Dark" : theme === "light" ? "Light" : "System";
-
   return (
-    <Button
-      variant="ghost"
-      size="sm"
-      onClick={() => setTheme(next)}
-      className="gap-1.5 text-xs"
-      title={`Theme: ${label}. Click for ${next}.`}
-    >
-      <Icon className="w-4 h-4" />
-      <span className="hidden sm:inline">{label}</span>
-    </Button>
+    <Select value={theme} onValueChange={(v) => setTheme(v ?? "system")}>
+      <SelectTrigger className="w-[120px] h-8 text-xs gap-1.5">
+        {theme === "dark" ? <Moon className="w-3.5 h-3.5" /> : theme === "light" ? <Sun className="w-3.5 h-3.5" /> : <Monitor className="w-3.5 h-3.5" />}
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="light">
+          <span className="flex items-center gap-2">
+            <Sun className="w-3.5 h-3.5" /> Light
+          </span>
+        </SelectItem>
+        <SelectItem value="dark">
+          <span className="flex items-center gap-2">
+            <Moon className="w-3.5 h-3.5" /> Dark
+          </span>
+        </SelectItem>
+        <SelectItem value="system">
+          <span className="flex items-center gap-2">
+            <Monitor className="w-3.5 h-3.5" /> System
+          </span>
+        </SelectItem>
+      </SelectContent>
+    </Select>
   );
 }

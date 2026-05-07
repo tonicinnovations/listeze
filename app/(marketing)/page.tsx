@@ -42,7 +42,7 @@ export default function LandingPage() {
       <div className="relative isolate overflow-hidden bg-gradient-to-r from-blue-700 via-blue-600 to-purple-600">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="py-2.5 flex items-center justify-center gap-3 text-sm text-white/90">
-            <strong>Launch Lifetime — $97 one-time</strong>
+            <strong>Launch Special — $97 one-time</strong>
             <LifetimeCounter />
           </div>
         </div>
@@ -53,8 +53,8 @@ export default function LandingPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-14 items-center justify-between">
             <div className="flex items-center gap-2">
-              <Home className="h-6 w-6 text-blue-600" />
-              <span className="text-lg font-extrabold tracking-tight">ListEze</span>
+              <Home className="h-7 w-7 text-blue-600" />
+              <span className="text-xl font-extrabold tracking-tight">ListEze MLS Generator</span>
             </div>
             <nav className="hidden md:flex items-center gap-5 text-sm text-muted-foreground">
               <a href="#features" className="hover:text-foreground transition-colors">Features</a>

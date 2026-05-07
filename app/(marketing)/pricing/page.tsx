@@ -107,7 +107,7 @@ export default function PricingPage() {
       {/* Lifetime Banner */}
       <div className="bg-gradient-to-r from-blue-700 via-blue-600 to-purple-600 text-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-center gap-4 text-sm">
-          <span className="font-bold">Launch Lifetime — $97 one-time</span>
+          <span className="font-bold">Launch Special — $97 one-time</span>
           <LifetimeCounter />
           <CheckoutButton
             priceId={process.env.STRIPE_PRICE_LIFETIME_LAUNCH || ""}
