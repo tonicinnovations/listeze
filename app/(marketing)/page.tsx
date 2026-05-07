@@ -1,5 +1,5 @@
 // v2.0 — Landing page redesign: custom hero, animated demo, visual variety
-import { Home, Check, ShieldCheck, Sparkles, Package, Camera, Globe, Lock, CreditCard, ArrowRight, Zap, FileText } from "lucide-react";
+import { Home, Check, ShieldCheck, Sparkles, Package, Camera, Globe, Lock, CreditCard, ArrowRight, Zap, FileText, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
