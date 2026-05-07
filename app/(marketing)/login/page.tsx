@@ -67,15 +67,27 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+      {/* Header */}
+      <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-background/70 bg-background/80 border-b border-border">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-14 items-center justify-between">
+            <Link href="/" className="flex items-center gap-2">
+              <Home className="h-7 w-7 text-blue-600" />
+              <span className="text-xl font-extrabold tracking-tight">ListEze MLS Generator</span>
+            </Link>
+            <nav className="hidden md:flex items-center gap-5 text-sm text-muted-foreground">
+              <Link href="/#features" className="hover:text-foreground transition-colors">Features</Link>
+              <Link href="/pricing" className="hover:text-foreground transition-colors">Pricing</Link>
+              <Link href="/#faq" className="hover:text-foreground transition-colors">FAQ</Link>
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      <div className="flex items-center justify-center px-4 py-16">
       <Card className="w-full max-w-md shadow-xl">
         <CardHeader className="text-center pb-4">
-          <Link href="/" className="inline-flex items-center justify-center gap-2 mb-4">
-            <Home className="h-7 w-7 text-blue-600" />
-            <span className="text-xl font-extrabold tracking-tight">
-              ListEze
-            </span>
-          </Link>
           <h1 className="text-2xl font-bold">Welcome</h1>
           <p className="text-muted-foreground">
             Sign in to start generating MLS listings
@@ -180,6 +192,7 @@ export default function LoginPage() {
           </Tabs>
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 }
