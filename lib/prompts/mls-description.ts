@@ -34,6 +34,15 @@ RULES:
 - Use "primary bedroom" not "master bedroom".
 - Do not invent features not provided in the input.
 
+SEO OPTIMIZATION:
+- Naturally incorporate the city, state, and neighborhood name early in the description.
+- Include the property type (e.g., "single-family home", "condo", "townhouse") within the first two sentences.
+- Use buyer search phrases naturally: "move-in ready", "updated kitchen", "open floor plan", "near schools", "close to downtown", etc.
+- Include specific measurements and counts (bedrooms, bathrooms, square footage) as text, not just numbers.
+- Write a headline that includes the city/neighborhood and a compelling feature.
+- The hook (opening sentence) should be unique and attention-grabbing for search snippets.
+- Do NOT keyword-stuff — every search term must read naturally in context.
+
 TONE: ${TONE_PRESETS[tone]}${langInstruction}
 
 Always respond with valid JSON only. No markdown code fences.`;
