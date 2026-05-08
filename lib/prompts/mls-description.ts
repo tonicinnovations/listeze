@@ -14,9 +14,9 @@ export interface PropertyInput {
 export type LengthTier = "short" | "medium" | "long";
 
 const LENGTH_GUIDES: Record<LengthTier, string> = {
-  short: "Keep each variant under 250 characters. Tight, punchy, MLS-ready.",
-  medium: "Target 400-600 characters per variant. Balanced detail.",
-  long: "Write 800-1200 characters per variant. Rich detail, full narrative.",
+  short: "Write approximately 250 words per variant. Concise and MLS-ready.",
+  medium: "Write approximately 500 words per variant. Balanced detail and narrative.",
+  long: "Write approximately 750 words per variant. Rich detail, full narrative, comprehensive description.",
 };
 
 export function buildSystemPrompt(tone: TonePreset = "mls_default", language: "en" | "es" = "en"): string {

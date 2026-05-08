@@ -403,7 +403,7 @@ export function PropertyForm({
                       : "bg-card text-foreground border-border hover:bg-muted"
                   }`}
                 >
-                  {l === "short" ? "Short (~250 chars)" : l === "medium" ? "Medium (~500 chars)" : "Long (~1000+ chars)"}
+                  {l === "short" ? "Short (~250 words)" : l === "medium" ? "Medium (~500 words)" : "Long (~750 words)"}
                 </button>
               ))}
             </div>
